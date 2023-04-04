@@ -1,0 +1,24 @@
+package com.example.projectpizza.model.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name="unit")
+public class Unit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NotEmpty
+    private String name;
+
+    @OneToMany(mappedBy = "unit")
+    private List<Dish> dishes;
+}
