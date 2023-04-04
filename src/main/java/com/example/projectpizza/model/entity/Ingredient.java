@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -16,4 +18,7 @@ public class Ingredient {
 
     @NotEmpty
     private String name;
+
+    @ManyToMany(mappedBy = "ingredients")
+    private Set<Dish> dishes;
 }

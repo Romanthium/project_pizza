@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -23,4 +25,10 @@ public class Cafe {
     private int phone;
     @NotEmpty
     private String address;
+
+    @ManyToMany
+    @JoinTable(name = "cafe_dish",
+            joinColumns = @JoinColumn(name="id_cafe"),
+            inverseJoinColumns = @JoinColumn(name="id_dish"))
+    private Set<Ingredient> ingredients;
 }
