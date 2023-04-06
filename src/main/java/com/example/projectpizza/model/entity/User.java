@@ -15,7 +15,7 @@ public class User {
     private int id;
 
     @NotEmpty
-    private String email;
+    private String login;
 
     @NotEmpty
     private String password;
