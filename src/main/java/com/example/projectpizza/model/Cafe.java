@@ -1,4 +1,4 @@
-package com.example.projectpizza.model.entity;
+package com.example.projectpizza.model;
 
 
 import jakarta.persistence.*;

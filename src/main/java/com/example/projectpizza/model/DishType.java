@@ -1,17 +1,17 @@
-package com.example.projectpizza.model.entity;
+package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ingredient")
-public class Ingredient {
+@Table(name="dish_type")
+public class DishType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,6 +19,6 @@ public class Ingredient {
     @NotEmpty
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Dish> dishes;
+    @OneToMany(mappedBy = "dishType")
+    private List<Dish> dishes;
 }
