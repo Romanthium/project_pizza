@@ -35,8 +35,8 @@ public class Dish {
 
     @ManyToMany
     @JoinTable(name = "dish_ingredient",
-            joinColumns = @JoinColumn(name="id_dish"),
-            inverseJoinColumns = @JoinColumn(name="id_ingredient"))
+            joinColumns = @JoinColumn(name = "id_dish"),
+            inverseJoinColumns = @JoinColumn(name = "id_ingredient"))
     private Set<Ingredient> ingredients;
 
     @ManyToMany(mappedBy = "dishes")

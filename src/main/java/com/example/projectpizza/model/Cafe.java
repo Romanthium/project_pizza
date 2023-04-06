@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="cafe")
+@Table(name = "cafe")
 public class Cafe {
 
     @Id
@@ -28,7 +28,7 @@ public class Cafe {
 
     @ManyToMany
     @JoinTable(name = "cafe_dish",
-            joinColumns = @JoinColumn(name="id_cafe"),
-            inverseJoinColumns = @JoinColumn(name="id_dish"))
+            joinColumns = @JoinColumn(name = "id_cafe"),
+            inverseJoinColumns = @JoinColumn(name = "id_dish"))
     private Set<Ingredient> ingredients;
 }
