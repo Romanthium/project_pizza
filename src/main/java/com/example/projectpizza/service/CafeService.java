@@ -22,7 +22,7 @@ public class CafeService {
         return cafeRepository.findAll();
     }
 
-    public Cafe fineOne(int id) {
+    public Cafe findOne(int id) {
         return cafeRepository.findById(id).orElse(null);
     }
 
