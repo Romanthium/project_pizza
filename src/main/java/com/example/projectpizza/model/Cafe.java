@@ -26,9 +26,9 @@ public class Cafe {
     @NotEmpty
     private String address;
 
-    @ManyToMany
-    @JoinTable(name = "cafe_dish",
-            joinColumns = @JoinColumn(name = "id_cafe"),
-            inverseJoinColumns = @JoinColumn(name = "id_dish"))
-    private Set<Ingredient> ingredients;
+//    @ManyToMany
+//    @JoinTable(name = "cafe_dish",
+//            joinColumns = @JoinColumn(name = "id_cafe"),
+//            inverseJoinColumns = @JoinColumn(name = "id_dish"))
+//    private Set<Ingredient> ingredients;
 }
