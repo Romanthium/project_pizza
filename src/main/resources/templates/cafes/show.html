@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cafe</title>
+</head>
+<body>
+<p th:text="${cafe.getName()}">VALUE</p>
+<p th:text="${'Phone: ' + cafe.getPhone()}">VALUE</p>
+<p th:text="${'Address: ' + cafe.getAddress()}">VALUE</p>
+
+<a th:href="@{/cafes/{id}/edit(id=${cafe.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/cafes/{id}(id=${cafe.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

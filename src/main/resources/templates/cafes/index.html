@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Cafes</title>
+</head>
+<body>
+<div th:each="cafe : ${cafes}">
+    <a th:href="@{/cafes/{id}(id=${cafe.getId()})}"
+       th:text="${cafe.getName()}">cafe_name</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/cafes/new">Add new cafe</a>
+</body>
+</html>
