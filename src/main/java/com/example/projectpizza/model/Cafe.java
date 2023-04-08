@@ -2,8 +2,7 @@ package com.example.projectpizza.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,11 +18,12 @@ public class Cafe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty
+    @NotBlank(message = "Name can'''t be empty")
     private String name;
 
+    @NotBlank(message = "Phone can'''t be empty")
     private String phone;
-    @NotEmpty
+    @NotBlank(message = "Address can'''t be empty")
     private String address;
 
 //    @ManyToMany

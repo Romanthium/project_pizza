@@ -38,10 +38,10 @@ public class CafesController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("cafe") /*@Valid*/ Cafe cafe,
+    public String create(@ModelAttribute("cafe") @Valid Cafe cafe,
                          BindingResult bindingResult) {
-//        if (bindingResult.hasErrors())
-//            return "cafes/new";
+        if (bindingResult.hasErrors())
+            return "cafes/new";
 
         cafeService.save(cafe);
         return "redirect:/cafes";
@@ -54,11 +54,11 @@ public class CafesController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("cafe") /*@Valid*/ Cafe cafe,
+    public String update(@ModelAttribute("cafe") @Valid Cafe cafe,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
-//        if (bindingResult.hasErrors())
-//            return "people/edit";
+        if (bindingResult.hasErrors())
+            return "cafes/edit";
 
         cafeService.update(id, cafe);
         return "redirect:/cafes";
