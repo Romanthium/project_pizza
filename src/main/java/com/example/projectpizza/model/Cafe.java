@@ -21,8 +21,8 @@ public class Cafe {
 
     @NotEmpty
     private String name;
-    @Min(value = 0)
-    private int phone;
+
+    private String phone;
     @NotEmpty
     private String address;
 
