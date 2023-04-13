@@ -2,6 +2,7 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,10 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty
+    @NotBlank(message = "Email can'''t be empty")
     @Email
     private String email;
 
-    @NotEmpty
+    @NotBlank(message = "Password can'''t be empty")
     private String password;
 }
