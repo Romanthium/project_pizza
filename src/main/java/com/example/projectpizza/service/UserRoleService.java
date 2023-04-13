@@ -22,7 +22,7 @@ public class UserRoleService {
         return userRoleRepository.findAll();
     }
 
-    public UserRole fineOne(int id) {
+    public UserRole findOne(int id) {
         return userRoleRepository.findById(id).orElse(null);
     }
 

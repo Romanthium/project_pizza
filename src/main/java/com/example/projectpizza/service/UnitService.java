@@ -22,7 +22,7 @@ public class UnitService {
         return unitRepository.findAll();
     }
 
-    public Unit fineOne(int id) {
+    public Unit findOne(int id) {
         return unitRepository.findById(id).orElse(null);
     }
 

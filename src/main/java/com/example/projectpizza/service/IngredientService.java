@@ -22,7 +22,7 @@ public class IngredientService {
         return ingredientRepository.findAll();
     }
 
-    public Ingredient fineOne(int id) {
+    public Ingredient findOne(int id) {
         return ingredientRepository.findById(id).orElse(null);
     }
 

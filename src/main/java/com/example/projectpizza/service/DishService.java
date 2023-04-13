@@ -22,7 +22,7 @@ public class DishService {
         return dishRepository.findAll();
     }
 
-    public Dish fineOne(int id) {
+    public Dish findOne(int id) {
         return dishRepository.findById(id).orElse(null);
     }
 

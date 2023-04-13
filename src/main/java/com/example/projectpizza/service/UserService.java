@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User fineOne(int id) {
+    public User findOne(int id) {
         return userRepository.findById(id).orElse(null);
     }
 
