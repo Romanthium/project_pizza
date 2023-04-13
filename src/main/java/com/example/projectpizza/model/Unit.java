@@ -1,6 +1,7 @@
 package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class Unit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty
+    @NotBlank(message = "Name can'''t be empty")
     private String name;
 
     @OneToMany(mappedBy = "unit")
