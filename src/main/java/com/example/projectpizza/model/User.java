@@ -1,6 +1,7 @@
 package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty
+    @NotBlank(message = "Login can'''t be empty")
     private String login;
 
-    @NotEmpty
+    @NotBlank(message = "Password can'''t be empty")
     private String password;
 
     @ManyToOne
