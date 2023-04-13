@@ -22,7 +22,7 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public Customer fineOne(int id) {
+    public Customer findOne(int id) {
         return customerRepository.findById(id).orElse(null);
     }
 
