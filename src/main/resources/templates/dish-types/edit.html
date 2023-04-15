@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit dish type</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/dish-types/{id}(id=${dishType.getId()})}" th:object="${dishType}">
+  <label for="name">Name: </label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+  <br/>
+  <input type="submit" value="Update"/>
+</form>
+</body>
+</html>

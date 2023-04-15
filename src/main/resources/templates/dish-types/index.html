@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish types</title>
+</head>
+<body>
+<div th:each="dishType : ${dishTypes}">
+    <a th:href="@{/dish-types/{id}(id=${dishType.getId()})}"
+       th:text="${dishType.getName()}">dish-type_name</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/dish-types/new">Add a new dish type</a>
+</body>
+</html>

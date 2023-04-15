@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish types</title>
+</head>
+<body>
+<p th:text="${dishType.getName()}">VALUE</p>
+
+<a th:href="@{/dish-types/{id}/edit(id=${dishType.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/dish-types/{id}(id=${dishType.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
