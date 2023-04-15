@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredients</title>
+</head>
+<body>
+<p th:text="${ingredient.getName()}">VALUE</p>
+
+<a th:href="@{/ingredients/{id}/edit(id=${ingredient.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/ingredients/{id}(id=${ingredient.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
