@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Units</title>
+</head>
+<body>
+<div th:each="unit : ${units}">
+    <a th:href="@{/units/{id}(id=${unit.getId()})}"
+       th:text="${unit.getName()}">unit_name</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/units/new">Add a new unit</a>
+</body>
+</html>

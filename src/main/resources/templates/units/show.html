@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Units</title>
+</head>
+<body>
+<p th:text="${unit.getName()}">VALUE</p>
+
+<a th:href="@{/units/{id}/edit(id=${unit.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/units/{id}(id=${unit.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
