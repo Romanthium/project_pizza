@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish</title>
+</head>
+<body>
+<p th:text="${dish.getName()}">VALUE</p>
+<p th:text="${'Size: ' + dish.getSize()}">VALUE</p>
+<p th:text="${'Unit: ' + dish.getUnit()}">VALUE</p>
+<p th:text="${'Price: ' + dish.getPrice()}">VALUE</p>
+
+<a th:href="@{/dishes/{id}/edit(id=${dish.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/dishes/{id}(id=${dish.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
