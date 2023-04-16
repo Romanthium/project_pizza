@@ -10,13 +10,19 @@
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     <br/>
+    <label for="dish-type">Dish type: </label>
+    <select th:object="${dishType}" th:field="*{id}" id="dish-type">
+        <option th:each="dishType : ${dishTypes}" th:value="${dishType.getId()}" th:text="${dishType.getName()}"></option>
+    </select>
+    <br/>
     <label for="size">Size: </label>
     <input type="number" th:field="*{size}" id="size"/>
     <div style="color:red" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size Error</div>
     <br/>
     <label for="unit">Unit: </label>
-    <input type="text" th:field="*{unit}" id="unit"/>
-    <div style="color:red" th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}">Unit Error</div>
+    <select th:object="${unit}" th:field="*{id}" id="unit">
+        <option th:each="unit : ${units}" th:value="${unit.getId()}" th:text="${unit.getName()}"></option>
+    </select>
     <br/>
     <label for="price">Price: </label>
     <input type="number" step="0.01" th:field="*{price}" id="price"/>

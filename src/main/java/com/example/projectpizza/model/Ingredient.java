@@ -20,6 +20,6 @@ public class Ingredient {
     @NotBlank(message = "Name can'''t be empty")
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Dish> dishes;
+//    @ManyToMany(mappedBy = "ingredients")
+//    private Set<Dish> dishes;
 }

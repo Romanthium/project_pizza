@@ -1,7 +1,11 @@
 package com.example.projectpizza.controller;
 
 import com.example.projectpizza.model.Dish;
+import com.example.projectpizza.model.DishType;
+import com.example.projectpizza.model.Unit;
 import com.example.projectpizza.service.DishService;
+import com.example.projectpizza.service.DishTypeService;
+import com.example.projectpizza.service.UnitService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/dishes")
 public class DishController {
     private final DishService dishService;
+    private final UnitService unitService;
+    private final DishTypeService dishTypeService;
 
     @Autowired
-    public DishController(DishService dishService) {
+    public DishController(DishService dishService, UnitService unitService, DishTypeService dishTypeService) {
         this.dishService = dishService;
+        this.unitService = unitService;
+        this.dishTypeService = dishTypeService;
     }
 
     @GetMapping()
@@ -32,13 +40,26 @@ public class DishController {
     }
 
     @GetMapping("/new")
-    public String newDish(@ModelAttribute("dish") Dish dish) {
+    public String newDish(@ModelAttribute("dish") Dish dish,
+                          Model model,
+                          @ModelAttribute("unit") Unit unit,
+                          @ModelAttribute("dishType") DishType dishType) {
+
+        model.addAttribute("units", unitService.findAll());
+        model.addAttribute("dishTypes", dishTypeService.findAll());
+
         return "dishes/new";
     }
 
     @PostMapping()
     public String create(@ModelAttribute("dish") @Valid Dish dish,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,
+                         @ModelAttribute("unit") Unit unit,
+                         @ModelAttribute("dishType") DishType dishType) {
+
+        dish.setUnit(unit);
+        dish.setDishType(dishType);
+
         if (bindingResult.hasErrors())
             return "dishes/new";
 
@@ -47,7 +68,12 @@ public class DishController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id,
+                       @ModelAttribute("unit") Unit unit,
+                       @ModelAttribute("dishType") DishType dishType) {
+
+        model.addAttribute("units", unitService.findAll());
+        model.addAttribute("dishTypes", dishTypeService.findAll());
         model.addAttribute("dish", dishService.findOne(id));
         return "dishes/edit";
     }
@@ -55,7 +81,13 @@ public class DishController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("dish") @Valid Dish dish,
                          BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                         @PathVariable("id") int id,
+                         @ModelAttribute("unit") Unit unit,
+                         @ModelAttribute("dishType") DishType dishType) {
+
+        dish.setUnit(unit);
+        dish.setDishType(dishType);
+
         if (bindingResult.hasErrors())
             return "dishes/edit";
 
