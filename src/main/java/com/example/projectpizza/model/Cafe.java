@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -31,4 +32,17 @@ public class Cafe {
 //            joinColumns = @JoinColumn(name = "id_cafe"),
 //            inverseJoinColumns = @JoinColumn(name = "id_dish"))
 //    private Set<Ingredient> ingredients;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cafe cafe = (Cafe) o;
+        return id.equals(cafe.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
