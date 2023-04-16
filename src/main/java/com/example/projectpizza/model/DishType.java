@@ -14,7 +14,7 @@ import java.util.List;
 public class DishType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Name can'''t be empty")
     private String name;

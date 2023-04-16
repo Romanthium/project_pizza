@@ -15,13 +15,13 @@ import java.util.Set;
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Name can'''t be empty")
     private String name;
 
     @Min(value = 1, message = "Size can'''t be less than 1")
-    private int size;
+    private Integer size;
 
     //unit
     @ManyToOne
@@ -29,7 +29,7 @@ public class Dish {
     private Unit unit;
 
     @Min(value = 0, message = "Price can'''t be less than 1")
-    private float price;
+    private Float price;
 
     //type
     @ManyToOne
