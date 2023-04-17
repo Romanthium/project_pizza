@@ -2,14 +2,15 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "ingredient")
@@ -21,8 +22,8 @@ public class Ingredient {
     @NotBlank(message = "Name can'''t be empty")
     private String name;
 
-//    @ManyToMany(mappedBy = "ingredients")
-//    private Set<Dish> dishes;
+    @ManyToMany(mappedBy = "ingredients")
+    private Set<Dish> dishes;
 
     @Override
     public boolean equals(Object o) {
@@ -35,5 +36,10 @@ public class Ingredient {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
