@@ -5,28 +5,29 @@
     <title>New dish</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/dishes}" th:object="${dish}">
+<form th:method="POST" th:action="@{/dishes}"> <!--  th:object="${dish}" -->
     <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <input type="text" th:field="*{dish.name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('dish.name')}" th:errors="*{dish.name}">Name Error</div>
     <br/>
     <label for="dish-type">Dish type: </label>
-    <select th:object="${dishType}" th:field="*{id}" id="dish-type">
-        <option th:each="dishType : ${dishTypes}" th:value="${dishType.getId()}" th:text="${dishType.getName()}"></option>
+    <select th:field="*{dish.dishType.id}" id="dish-type"> <!-- th:object="${dishType}"  th:name="dishType.id" -->
+        <option th:each="dishType : ${dishTypes}" th:value="${dishType.getId()}"
+                th:text="${dishType.getName()}"></option>
     </select>
     <br/>
     <label for="size">Size: </label>
-    <input type="number" th:field="*{size}" id="size"/>
-    <div style="color:red" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size Error</div>
+    <input type="number" th:field="*{dish.size}" id="size"/>
+    <div style="color:red" th:if="${#fields.hasErrors('dish.size')}" th:errors="*{dish.size}">Size Error</div>
     <br/>
     <label for="unit">Unit: </label>
-    <select th:object="${unit}" th:field="*{id}" id="unit">
+    <select th:field="*{dish.unit.id}" id="unit"> <!-- th:object="${unit}" th:name="unit.id" -->
         <option th:each="unit : ${units}" th:value="${unit.getId()}" th:text="${unit.getName()}"></option>
     </select>
     <br/>
     <label for="price">Price: </label>
-    <input type="number" step="0.01" th:field="*{price}" id="price"/>
-    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+    <input type="number" step="0.01" th:field="*{dish.price}" id="price"/>
+    <div style="color:red" th:if="${#fields.hasErrors('dish.price')}" th:errors="*{dish.price}">Price Error</div>
     <br/>
     <input type="submit" value="Create"/>
 </form>

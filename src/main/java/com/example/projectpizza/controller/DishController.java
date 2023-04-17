@@ -40,10 +40,7 @@ public class DishController {
     }
 
     @GetMapping("/new")
-    public String newDish(@ModelAttribute("dish") Dish dish,
-                          Model model,
-                          @ModelAttribute("unit") Unit unit,
-                          @ModelAttribute("dishType") DishType dishType) {
+    public String newDish(@ModelAttribute("dish") Dish dish, Model model) {
 
         model.addAttribute("units", unitService.findAll());
         model.addAttribute("dishTypes", dishTypeService.findAll());
@@ -53,12 +50,7 @@ public class DishController {
 
     @PostMapping()
     public String create(@ModelAttribute("dish") @Valid Dish dish,
-                         BindingResult bindingResult,
-                         @ModelAttribute("unit") Unit unit,
-                         @ModelAttribute("dishType") DishType dishType) {
-
-        dish.setUnit(unit);
-        dish.setDishType(dishType);
+                         BindingResult bindingResult) {
 
         if (bindingResult.hasErrors())
             return "dishes/new";
@@ -68,9 +60,7 @@ public class DishController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id,
-                       @ModelAttribute("unit") Unit unit,
-                       @ModelAttribute("dishType") DishType dishType) {
+    public String edit(Model model, @PathVariable("id") int id) {
 
         model.addAttribute("units", unitService.findAll());
         model.addAttribute("dishTypes", dishTypeService.findAll());
@@ -81,12 +71,7 @@ public class DishController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("dish") @Valid Dish dish,
                          BindingResult bindingResult,
-                         @PathVariable("id") int id,
-                         @ModelAttribute("unit") Unit unit,
-                         @ModelAttribute("dishType") DishType dishType) {
-
-        dish.setUnit(unit);
-        dish.setDishType(dishType);
+                         @PathVariable("id") int id) {
 
         if (bindingResult.hasErrors())
             return "dishes/edit";
