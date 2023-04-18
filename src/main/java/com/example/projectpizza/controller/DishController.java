@@ -1,10 +1,9 @@
 package com.example.projectpizza.controller;
 
 import com.example.projectpizza.model.Dish;
-import com.example.projectpizza.model.DishType;
-import com.example.projectpizza.model.Unit;
 import com.example.projectpizza.service.DishService;
 import com.example.projectpizza.service.DishTypeService;
+import com.example.projectpizza.service.IngredientService;
 import com.example.projectpizza.service.UnitService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,14 @@ public class DishController {
     private final DishService dishService;
     private final UnitService unitService;
     private final DishTypeService dishTypeService;
+    private final IngredientService ingredientService;
 
     @Autowired
-    public DishController(DishService dishService, UnitService unitService, DishTypeService dishTypeService) {
+    public DishController(DishService dishService, UnitService unitService, DishTypeService dishTypeService, IngredientService ingredientService) {
         this.dishService = dishService;
         this.unitService = unitService;
         this.dishTypeService = dishTypeService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping()
@@ -44,6 +45,7 @@ public class DishController {
 
         model.addAttribute("units", unitService.findAll());
         model.addAttribute("dishTypes", dishTypeService.findAll());
+        model.addAttribute("ingredients", ingredientService.findAll());
 
         return "dishes/new";
     }
@@ -55,6 +57,7 @@ public class DishController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("units", unitService.findAll());
             model.addAttribute("dishTypes", dishTypeService.findAll());
+            model.addAttribute("ingredients", ingredientService.findAll());
             return "dishes/new";
         }
 
@@ -67,6 +70,8 @@ public class DishController {
 
         model.addAttribute("units", unitService.findAll());
         model.addAttribute("dishTypes", dishTypeService.findAll());
+        model.addAttribute("ingredients", ingredientService.findAll());
+
         model.addAttribute("dish", dishService.findOne(id));
         return "dishes/edit";
     }
@@ -79,6 +84,7 @@ public class DishController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("units", unitService.findAll());
             model.addAttribute("dishTypes", dishTypeService.findAll());
+            model.addAttribute("ingredients", ingredientService.findAll());
 
             return "dishes/edit";
         }

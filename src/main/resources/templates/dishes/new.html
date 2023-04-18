@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>New dish</title>
@@ -28,6 +28,12 @@
     <label for="price">Price: </label>
     <input type="text" th:field="*{price}" id="price"/>
     <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+    <br/>
+    <label for="ingredients">Ingredients: </label>
+    <th:block th:each="ingredient : ${ingredients}">
+        <input type="checkbox" th:field="*{ingredients}"
+               th:value="${ingredient.getId()}" th:text="${ingredient.getName()}" id="ingredients">
+    </th:block>
     <br/>
     <input type="submit" value="Create"/>
 </form>
