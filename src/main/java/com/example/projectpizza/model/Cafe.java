@@ -3,14 +3,16 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 import java.util.Set;
 
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
 @Entity
 @Table(name = "cafe")
 public class Cafe {
