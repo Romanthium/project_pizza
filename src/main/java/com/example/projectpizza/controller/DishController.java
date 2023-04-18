@@ -50,10 +50,13 @@ public class DishController {
 
     @PostMapping()
     public String create(@ModelAttribute("dish") @Valid Dish dish,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("units", unitService.findAll());
+            model.addAttribute("dishTypes", dishTypeService.findAll());
             return "dishes/new";
+        }
 
         dishService.save(dish);
         return "redirect:/dishes";
@@ -70,11 +73,15 @@ public class DishController {
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("dish") @Valid Dish dish,
-                         BindingResult bindingResult,
+                         BindingResult bindingResult, Model model,
                          @PathVariable("id") int id) {
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("units", unitService.findAll());
+            model.addAttribute("dishTypes", dishTypeService.findAll());
+
             return "dishes/edit";
+        }
 
         dishService.update(id, dish);
         return "redirect:/dishes";

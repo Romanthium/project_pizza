@@ -1,8 +1,7 @@
 package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.Objects;
@@ -21,7 +20,8 @@ public class Dish {
     @NotBlank(message = "Name can'''t be empty")
     private String name;
 
-    @Min(value = 1, message = "Size can'''t be less than 1")
+    @Positive(message = "Size can'''t be less than 1")
+    @NotNull(message = "Size can'''t be less than 1")
     private Integer size;
 
     //unit
@@ -29,7 +29,8 @@ public class Dish {
     @JoinColumn(name = "unit", referencedColumnName = "id")
     private Unit unit;
 
-    @Min(value = 0, message = "Price can'''t be less than 1")
+    @PositiveOrZero(message = "Price can'''t be less than 0")
+    @NotNull(message = "Price can'''t be less than 0")
     private Float price;
 
     //type
