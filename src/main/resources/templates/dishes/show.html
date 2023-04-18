@@ -11,6 +11,8 @@
 <p th:text="${'Unit: ' + dish.getUnit().getName()}">VALUE</p>
 <p th:text="${'Price: ' + dish.getPrice()}">VALUE</p>
 <p th:text="${'Ingredients: ' + dish.getIngredients().toString()}">VALUE</p>
+<!--<p th:text="${'Ingredients: '}">VALUE</p>-->
+<!--<p th:each="ingredient : ${dish.getIngredients()}" th:text="${ingredient.getName()}">VALUE</p>-->
 
 <a th:href="@{/dishes/{id}/edit(id=${dish.getId()})}">Edit</a>
 
