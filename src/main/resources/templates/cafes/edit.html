@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit cafe</title>
@@ -19,6 +19,12 @@
   <textarea th:field="*{address}" id="address" rows="4" cols="50">
   </textarea>
   <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</div>
+  <br/>
+  <label for="dishes">Dishes: </label>
+  <th:block th:each="dish : ${dishes}">
+    <input type="checkbox" th:field="*{dishes}"
+           th:value="${dish.getId()}" th:text="${dish.getName()}" id="dishes">
+  </th:block>
   <br/>
   <input type="submit" value="Update"/>
 </form>
