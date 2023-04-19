@@ -44,8 +44,8 @@ public class Dish {
             inverseJoinColumns = @JoinColumn(name = "id_ingredient"))
     private Set<Ingredient> ingredients;
 
-//    @ManyToMany(mappedBy = "dishes")
-//    private Set<Cafe> cafes;
+    @ManyToMany(mappedBy = "dishes")
+    private Set<Cafe> cafes;
 
     @Override
     public boolean equals(Object o) {
@@ -62,6 +62,6 @@ public class Dish {
 
     @Override
     public String toString() {
-        return ingredients.toString();
+        return name;
     }
 }

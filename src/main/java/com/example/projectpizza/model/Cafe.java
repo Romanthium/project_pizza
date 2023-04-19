@@ -29,11 +29,11 @@ public class Cafe {
     @NotBlank(message = "Address can'''t be empty")
     private String address;
 
-//    @ManyToMany
-//    @JoinTable(name = "cafe_dish",
-//            joinColumns = @JoinColumn(name = "id_cafe"),
-//            inverseJoinColumns = @JoinColumn(name = "id_dish"))
-//    private Set<Ingredient> ingredients;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "cafe_dish",
+            joinColumns = @JoinColumn(name = "id_cafe"),
+            inverseJoinColumns = @JoinColumn(name = "id_dish"))
+    private Set<Dish> dishes;
 
     @Override
     public boolean equals(Object o) {
