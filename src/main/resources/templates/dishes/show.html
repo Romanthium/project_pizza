@@ -9,7 +9,7 @@
 <p th:text="${'Dish type: ' + dish.getDishType().getName()}">VALUE</p>
 <p th:text="${'Size: ' + dish.getSize()}">VALUE</p>
 <p th:text="${'Unit: ' + dish.getUnit().getName()}">VALUE</p>
-<p th:text="${'Price: ' + dish.getPrice()}">VALUE</p>
+<p th:text="${'Price: ' + #numbers.formatDecimal(dish.getPrice(),1,2)}">VALUE</p>
 <p th:text="${'Ingredients: '}">VALUE</p>
 <!--<p th:each="ingredient : ${dish.getIngredients()}" th:text="${ingredient.getName()}">VALUE</p>-->
 <p>
