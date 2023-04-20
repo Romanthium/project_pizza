@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Dish</title>
@@ -11,7 +11,12 @@
 <p th:text="${'Unit: ' + dish.getUnit().getName()}">VALUE</p>
 <p th:text="${'Price: ' + dish.getPrice()}">VALUE</p>
 <p th:text="${'Ingredients: '}">VALUE</p>
-<p th:each="ingredient : ${dish.getIngredients()}" th:text="${ingredient.getName()}">VALUE</p>
+<!--<p th:each="ingredient : ${dish.getIngredients()}" th:text="${ingredient.getName()}">VALUE</p>-->
+<p>
+<th:block th:each="ingredient,iterStat : ${dish.getIngredients()}">
+    <span th:text="${ingredient.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
+</th:block>
+</p>
 
 <a th:href="@{/dishes/{id}/edit(id=${dish.getId()})}">Edit</a>
 
