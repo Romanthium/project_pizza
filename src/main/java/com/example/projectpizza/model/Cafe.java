@@ -30,6 +30,7 @@ public class Cafe {
     private String address;
 
     @ManyToMany
+    @OrderBy("name")
     @JoinTable(name = "cafe_dish",
             joinColumns = @JoinColumn(name = "id_cafe"),
             inverseJoinColumns = @JoinColumn(name = "id_dish"))

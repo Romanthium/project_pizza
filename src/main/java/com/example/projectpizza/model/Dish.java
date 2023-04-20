@@ -39,6 +39,7 @@ public class Dish {
     private DishType dishType;
 
     @ManyToMany
+    @OrderBy("name")
     @JoinTable(name = "dish_ingredient",
             joinColumns = @JoinColumn(name = "id_dish"),
             inverseJoinColumns = @JoinColumn(name = "id_ingredient"))
