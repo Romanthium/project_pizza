@@ -29,7 +29,7 @@ public class Cafe {
     @NotBlank(message = "Address can'''t be empty")
     private String address;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(name = "cafe_dish",
             joinColumns = @JoinColumn(name = "id_cafe"),
             inverseJoinColumns = @JoinColumn(name = "id_dish"))
