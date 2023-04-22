@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,6 +21,20 @@ public class CafeService {
 
     public List<Cafe> findAll() {
         return cafeRepository.findAll();
+    }
+
+    public Optional<Cafe> findByName(String name) {
+        return cafeRepository.findByName(name)
+                .stream()
+                .filter(c -> c.getName().equals(name))
+                .findAny();
+    }
+
+    public Optional<Cafe> findByNameAndIdNot(String name, Integer id) {
+        return cafeRepository.findByNameAndIdNot(name, id)
+                .stream()
+                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .findAny();
     }
 
     public Cafe findOne(int id) {

@@ -3,6 +3,7 @@ package com.example.projectpizza.controller;
 import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.service.CafeService;
 import com.example.projectpizza.service.DishService;
+import com.example.projectpizza.utils.validator.CafeValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class CafesController {
     private final CafeService cafeService;
     private final DishService dishService;
+    private final CafeValidator cafeValidator;
 
     @Autowired
-    public CafesController(CafeService cafeService, DishService dishService) {
+    public CafesController(CafeService cafeService, DishService dishService, CafeValidator cafeValidator) {
         this.cafeService = cafeService;
         this.dishService = dishService;
+        this.cafeValidator = cafeValidator;
     }
 
     @GetMapping()
@@ -43,7 +46,11 @@ public class CafesController {
     @PostMapping()
     public String create(@ModelAttribute("cafe") @Valid Cafe cafe,
                          BindingResult bindingResult, Model model) {
+
+        cafeValidator.validate(cafe, bindingResult);
+
         model.addAttribute("dishes", dishService.findAll());
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishes", dishService.findAll());
             return "cafes/new";
@@ -64,7 +71,11 @@ public class CafesController {
     public String update(@ModelAttribute("cafe") @Valid Cafe cafe,
                          BindingResult bindingResult,
                          @PathVariable("id") int id, Model model) {
+
+        cafeValidator.validate(cafe, bindingResult);
+
         model.addAttribute("dishes", dishService.findAll());
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishes", dishService.findAll());
             return "cafes/edit";
