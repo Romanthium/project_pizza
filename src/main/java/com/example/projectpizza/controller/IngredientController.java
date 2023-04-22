@@ -2,6 +2,7 @@ package com.example.projectpizza.controller;
 
 import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.service.IngredientService;
+import com.example.projectpizza.utils.validator.IngredientValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class IngredientController {
     private final IngredientService ingredientService;
 
+    private final IngredientValidator ingredientValidator;
+
     @Autowired
-    public IngredientController(IngredientService ingredientService) {
+    public IngredientController(IngredientService ingredientService, IngredientValidator ingredientValidator) {
         this.ingredientService = ingredientService;
+        this.ingredientValidator = ingredientValidator;
     }
 
     @GetMapping()
@@ -39,6 +43,9 @@ public class IngredientController {
     @PostMapping()
     public String create(@ModelAttribute("ingredient") @Valid Ingredient ingredient,
                          BindingResult bindingResult) {
+
+        ingredientValidator.validate(ingredient, bindingResult);
+
         if (bindingResult.hasErrors())
             return "ingredients/new";
 
@@ -56,6 +63,9 @@ public class IngredientController {
     public String update(@ModelAttribute("ingredient") @Valid Ingredient ingredient,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
+
+        ingredientValidator.validate(ingredient, bindingResult);
+
         if (bindingResult.hasErrors())
             return "ingredients/edit";
 

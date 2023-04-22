@@ -1,5 +1,6 @@
 package com.example.projectpizza.service;
 
+import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,6 +26,20 @@ public class IngredientService {
 
     public Ingredient findOne(int id) {
         return ingredientRepository.findById(id).orElse(null);
+    }
+
+    public Optional<Ingredient> findByName(String name) {
+        return ingredientRepository.findByName(name)
+                .stream()
+                .filter(c -> c.getName().equals(name))
+                .findAny();
+    }
+
+    public Optional<Ingredient> findByNameAndIdNot(String name, Integer id) {
+        return ingredientRepository.findByNameAndIdNot(name, id)
+                .stream()
+                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .findAny();
     }
 
     @Transactional
