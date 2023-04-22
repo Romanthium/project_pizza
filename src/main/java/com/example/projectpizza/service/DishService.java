@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -40,6 +41,20 @@ public class DishService {
     @Transactional
     public void delete(int id) {
         dishRepository.deleteById(id);
+    }
+
+    public Optional<Dish> findByName(String name) {
+        return dishRepository.findByName(name)
+                .stream()
+                .filter(c -> c.getName().equals(name))
+                .findAny();
+    }
+
+    public Optional<Dish> findByNameAndIdNot(String name, Integer id) {
+        return dishRepository.findByNameAndIdNot(name, id)
+                .stream()
+                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .findAny();
     }
 }
 

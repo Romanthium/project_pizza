@@ -5,6 +5,7 @@ import com.example.projectpizza.service.DishService;
 import com.example.projectpizza.service.DishTypeService;
 import com.example.projectpizza.service.IngredientService;
 import com.example.projectpizza.service.UnitService;
+import com.example.projectpizza.utils.validator.DishValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,17 @@ public class DishController {
     private final DishTypeService dishTypeService;
     private final IngredientService ingredientService;
 
+    private final DishValidator dishValidator;
+
     @Autowired
-    public DishController(DishService dishService, UnitService unitService, DishTypeService dishTypeService, IngredientService ingredientService) {
+    public DishController(DishService dishService, UnitService unitService,
+                          DishTypeService dishTypeService, IngredientService ingredientService,
+                          DishValidator dishValidator) {
         this.dishService = dishService;
         this.unitService = unitService;
         this.dishTypeService = dishTypeService;
         this.ingredientService = ingredientService;
+        this.dishValidator = dishValidator;
     }
 
     @GetMapping()
@@ -54,6 +60,8 @@ public class DishController {
     public String create(@ModelAttribute("dish") @Valid Dish dish,
                          BindingResult bindingResult, Model model) {
 
+        dishValidator.validate(dish, bindingResult);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("units", unitService.findAll());
             model.addAttribute("dishTypes", dishTypeService.findAll());
@@ -80,6 +88,8 @@ public class DishController {
     public String update(@ModelAttribute("dish") @Valid Dish dish,
                          BindingResult bindingResult, Model model,
                          @PathVariable("id") int id) {
+
+        dishValidator.validate(dish, bindingResult);
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("units", unitService.findAll());
