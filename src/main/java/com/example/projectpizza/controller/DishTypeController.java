@@ -2,6 +2,7 @@ package com.example.projectpizza.controller;
 
 import com.example.projectpizza.model.DishType;
 import com.example.projectpizza.service.DishTypeService;
+import com.example.projectpizza.utils.validator.DishTypeValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/dish-types")
 public class DishTypeController {
     private final DishTypeService dishTypeService;
+    private final DishTypeValidator dishTypeValidator;
 
     @Autowired
-    public DishTypeController(DishTypeService dishTypeService) {
+    public DishTypeController(DishTypeService dishTypeService, DishTypeValidator dishTypeValidator) {
         this.dishTypeService = dishTypeService;
+        this.dishTypeValidator = dishTypeValidator;
     }
 
     @GetMapping()
@@ -39,6 +42,9 @@ public class DishTypeController {
     @PostMapping()
     public String create(@ModelAttribute("dishType") @Valid DishType dishType,
                          BindingResult bindingResult) {
+
+        dishTypeValidator.validate(dishType, bindingResult);
+
         if (bindingResult.hasErrors())
             return "dish-types/new";
 
@@ -56,6 +62,9 @@ public class DishTypeController {
     public String update(@ModelAttribute("dishType") @Valid DishType dishType,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
+
+        dishTypeValidator.validate(dishType, bindingResult);
+
         if (bindingResult.hasErrors())
             return "dish-types/edit";
 
