@@ -38,7 +38,7 @@ public class DishTypeService {
     public Optional<DishType> findByNameAndIdNot(String name, Integer id) {
         return dishTypeRepository.findByNameAndIdNot(name, id)
                 .stream()
-                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .filter(dt -> (dt.getName().equals(name) && !(dt.getId().equals(id))))
                 .findAny();
     }
 

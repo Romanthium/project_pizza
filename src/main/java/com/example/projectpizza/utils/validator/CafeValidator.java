@@ -25,8 +25,8 @@ public class CafeValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Cafe cafe = (Cafe) target;
 
-        if (cafeService.findByName(cafe.getName()).isPresent()
-                || cafeService.findByNameAndIdNot(cafe.getName(), cafe.getId()).isPresent()) {
+        if ((cafeService.findByName(cafe.getName()).isPresent() && cafe.getId() == null)
+                || (cafeService.findByNameAndIdNot(cafe.getName(), cafe.getId()).isPresent())) {
             errors.rejectValue("name", "", "This name is already taken");
         }
     }

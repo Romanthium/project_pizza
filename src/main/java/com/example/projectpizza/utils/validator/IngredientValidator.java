@@ -1,6 +1,5 @@
 package com.example.projectpizza.utils.validator;
 
-import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,8 @@ public class IngredientValidator implements Validator {
     public void validate(Object target, Errors errors) {
          Ingredient ingredient = (Ingredient) target;
 
-        if (ingredientService.findByName(ingredient.getName()).isPresent()
-                || ingredientService.findByNameAndIdNot(ingredient.getName(), ingredient.getId()).isPresent()) {
+        if ((ingredientService.findByName(ingredient.getName()).isPresent() && ingredient.getId() == null)
+                || (ingredientService.findByNameAndIdNot(ingredient.getName(), ingredient.getId()).isPresent())) {
             errors.rejectValue("name", "", "This name is already taken");
         }
     }

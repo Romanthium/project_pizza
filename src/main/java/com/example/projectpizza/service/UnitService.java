@@ -38,7 +38,7 @@ public class UnitService {
     public Optional<Unit> findByNameAndIdNot(String name, Integer id) {
         return unitRepository.findByNameAndIdNot(name, id)
                 .stream()
-                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .filter(u -> (u.getName().equals(name) && !(u.getId().equals(id))))
                 .findAny();
     }
 

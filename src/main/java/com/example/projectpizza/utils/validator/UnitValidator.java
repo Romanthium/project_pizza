@@ -25,8 +25,8 @@ public class UnitValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Unit unit = (Unit) target;
 
-        if (unitService.findByName(unit.getName()).isPresent()
-                || unitService.findByNameAndIdNot(unit.getName(), unit.getId()).isPresent()) {
+        if ((unitService.findByName(unit.getName()).isPresent() && unit.getId() == null)
+                || (unitService.findByNameAndIdNot(unit.getName(), unit.getId()).isPresent())) {
             errors.rejectValue("name", "", "This name is already taken");
         }
     }

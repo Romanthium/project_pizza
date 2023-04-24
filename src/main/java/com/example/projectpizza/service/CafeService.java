@@ -33,7 +33,7 @@ public class CafeService {
     public Optional<Cafe> findByNameAndIdNot(String name, Integer id) {
         return cafeRepository.findByNameAndIdNot(name, id)
                 .stream()
-                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .filter(c -> (c.getName().equals(name) && !(c.getId().equals(id))))
                 .findAny();
     }
 

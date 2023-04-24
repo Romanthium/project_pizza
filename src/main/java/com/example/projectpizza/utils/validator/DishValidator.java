@@ -1,6 +1,5 @@
 package com.example.projectpizza.utils.validator;
 
-import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.model.Dish;
 import com.example.projectpizza.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,8 @@ public class DishValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Dish dish = (Dish) target;
 
-        if (dishService.findByName(dish.getName()).isPresent()
-                || dishService.findByNameAndIdNot(dish.getName(), dish.getId()).isPresent()) {
+        if ((dishService.findByName(dish.getName()).isPresent() && dish.getId() == null)    //check if new has the same name
+                || (dishService.findByNameAndIdNot(dish.getName(), dish.getId()).isPresent())) {    //check if we already have same name with another id
             errors.rejectValue("name", "", "This name is already taken");
         }
     }

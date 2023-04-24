@@ -38,7 +38,7 @@ public class IngredientService {
     public Optional<Ingredient> findByNameAndIdNot(String name, Integer id) {
         return ingredientRepository.findByNameAndIdNot(name, id)
                 .stream()
-                .filter(c -> (c.getName().equals(name) && c.getId().compareTo(id) != 0))
+                .filter(i -> (i.getName().equals(name) && !(i.getId().equals(id))))
                 .findAny();
     }
 
