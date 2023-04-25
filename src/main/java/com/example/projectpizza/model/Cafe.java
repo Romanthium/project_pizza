@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class Cafe {
     @JoinTable(name = "cafe_dish",
             joinColumns = @JoinColumn(name = "id_cafe"),
             inverseJoinColumns = @JoinColumn(name = "id_dish"))
-    private Set<Dish> dishes;
+    private List<Dish> dishes;
 
     @Override
     public boolean equals(Object o) {

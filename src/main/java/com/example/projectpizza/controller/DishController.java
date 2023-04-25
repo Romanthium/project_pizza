@@ -1,5 +1,10 @@
 package com.example.projectpizza.controller;
 
+import com.example.projectpizza.dto.DishDto;
+import com.example.projectpizza.mapper.DishMapper;
+import com.example.projectpizza.mapper.DishTypeMapper;
+import com.example.projectpizza.mapper.IngredientMapper;
+import com.example.projectpizza.mapper.UnitMapper;
 import com.example.projectpizza.model.Dish;
 import com.example.projectpizza.service.DishService;
 import com.example.projectpizza.service.DishTypeService;
@@ -23,83 +28,94 @@ public class DishController {
 
     private final DishValidator dishValidator;
 
+    private final DishMapper dishMapper;
+    private final DishTypeMapper dishTypeMapper;
+    private final IngredientMapper ingredientMapper;
+    private final UnitMapper unitMapper;
+
+
     @Autowired
     public DishController(DishService dishService, UnitService unitService,
                           DishTypeService dishTypeService, IngredientService ingredientService,
-                          DishValidator dishValidator) {
+                          DishValidator dishValidator, DishMapper dishMapper,
+                          DishTypeMapper dishTypeMapper, IngredientMapper ingredientMapper, UnitMapper unitMapper) {
         this.dishService = dishService;
         this.unitService = unitService;
         this.dishTypeService = dishTypeService;
         this.ingredientService = ingredientService;
         this.dishValidator = dishValidator;
+        this.dishMapper = dishMapper;
+        this.dishTypeMapper = dishTypeMapper;
+        this.ingredientMapper = ingredientMapper;
+        this.unitMapper = unitMapper;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
         return "dishes/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("dish", dishService.findOne(id));
+        model.addAttribute("dish", dishMapper.toDto(dishService.findOne(id)));
         return "dishes/show";
     }
 
     @GetMapping("/new")
-    public String newDish(@ModelAttribute("dish") Dish dish, Model model) {
+    public String newDish(@ModelAttribute("dish") DishDto dishDto, Model model) {
 
-        model.addAttribute("units", unitService.findAll());
-        model.addAttribute("dishTypes", dishTypeService.findAll());
-        model.addAttribute("ingredients", ingredientService.findAll());
+        model.addAttribute("units", unitMapper.toDto(unitService.findAll()));
+        model.addAttribute("dishTypes", dishTypeMapper.toDto(dishTypeService.findAll()));
+        model.addAttribute("ingredients", ingredientMapper.toDto(ingredientService.findAll()));
 
         return "dishes/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("dish") @Valid Dish dish,
+    public String create(@ModelAttribute("dish") @Valid DishDto dishDto,
                          BindingResult bindingResult, Model model) {
 
-        dishValidator.validate(dish, bindingResult);
+        dishValidator.validate(dishMapper.toEntity(dishDto), bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("units", unitService.findAll());
-            model.addAttribute("dishTypes", dishTypeService.findAll());
-            model.addAttribute("ingredients", ingredientService.findAll());
+            model.addAttribute("units", unitMapper.toDto(unitService.findAll()));
+            model.addAttribute("dishTypes", dishTypeMapper.toDto(dishTypeService.findAll()));
+            model.addAttribute("ingredients", ingredientMapper.toDto(ingredientService.findAll()));
             return "dishes/new";
         }
 
-        dishService.save(dish);
+        dishService.save(dishMapper.toEntity(dishDto));
         return "redirect:/dishes";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
 
-        model.addAttribute("units", unitService.findAll());
-        model.addAttribute("dishTypes", dishTypeService.findAll());
-        model.addAttribute("ingredients", ingredientService.findAll());
+        model.addAttribute("units", unitMapper.toDto(unitService.findAll()));
+        model.addAttribute("dishTypes", dishTypeMapper.toDto(dishTypeService.findAll()));
+        model.addAttribute("ingredients", ingredientMapper.toDto(ingredientService.findAll()));
 
-        model.addAttribute("dish", dishService.findOne(id));
+        model.addAttribute("dish", dishMapper.toDto(dishService.findOne(id)));
         return "dishes/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("dish") @Valid Dish dish,
+    public String update(@ModelAttribute("dish") @Valid DishDto dishDto,
                          BindingResult bindingResult, Model model,
                          @PathVariable("id") int id) {
 
-        dishValidator.validate(dish, bindingResult);
+        dishValidator.validate(dishMapper.toEntity(dishDto), bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("units", unitService.findAll());
-            model.addAttribute("dishTypes", dishTypeService.findAll());
-            model.addAttribute("ingredients", ingredientService.findAll());
+            model.addAttribute("units", unitMapper.toDto(unitService.findAll()));
+            model.addAttribute("dishTypes", dishTypeMapper.toDto(dishTypeService.findAll()));
+            model.addAttribute("ingredients", ingredientMapper.toDto(ingredientService.findAll()));
 
             return "dishes/edit";
         }
 
-        dishService.update(id, dish);
+        dishService.update(id, dishMapper.toEntity(dishDto));
         return "redirect:/dishes";
     }
 
@@ -108,6 +124,4 @@ public class DishController {
         dishService.delete(id);
         return "redirect:/dishes";
     }
-
-
 }

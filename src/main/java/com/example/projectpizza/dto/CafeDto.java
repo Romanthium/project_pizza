@@ -1,7 +1,7 @@
 package com.example.projectpizza.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 

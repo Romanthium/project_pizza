@@ -1,5 +1,8 @@
 package com.example.projectpizza.controller;
 
+import com.example.projectpizza.dto.CafeDto;
+import com.example.projectpizza.mapper.CafeMapper;
+import com.example.projectpizza.mapper.DishMapper;
 import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.service.CafeService;
 import com.example.projectpizza.service.DishService;
@@ -17,71 +20,80 @@ public class CafesController {
     private final CafeService cafeService;
     private final DishService dishService;
     private final CafeValidator cafeValidator;
+    private final CafeMapper cafeMapper;
+    private final DishMapper dishMapper;
 
     @Autowired
-    public CafesController(CafeService cafeService, DishService dishService, CafeValidator cafeValidator) {
+    public CafesController(CafeService cafeService, DishService dishService,
+                           CafeValidator cafeValidator, CafeMapper cafeMapper, DishMapper dishMapper) {
         this.cafeService = cafeService;
         this.dishService = dishService;
         this.cafeValidator = cafeValidator;
+        this.cafeMapper = cafeMapper;
+        this.dishMapper = dishMapper;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("cafes", cafeService.findAll());
+        model.addAttribute("cafes", cafeMapper.toDto(cafeService.findAll()));
         return "cafes/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("cafe", cafeService.findOne(id));
+        model.addAttribute("cafe", cafeMapper.toDto(cafeService.findOne(id)));
         return "cafes/show";
     }
 
     @GetMapping("/new")
-    public String newCafe(@ModelAttribute("cafe") Cafe cafe, Model model) {
-        model.addAttribute("dishes", dishService.findAll());
+    public String newCafe(@ModelAttribute("cafe") CafeDto cafeDto, Model model) {
+        model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
         return "cafes/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("cafe") @Valid Cafe cafe,
+    public String create(@ModelAttribute("cafe") @Valid CafeDto cafeDto,
                          BindingResult bindingResult, Model model) {
 
-        cafeValidator.validate(cafe, bindingResult);
+        cafeValidator.validate(cafeMapper.toEntity(cafeDto), bindingResult);
 
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("dishes", dishService.findAll());
+            model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
             return "cafes/new";
         }
 
-        cafeService.save(cafe);
+        cafeService.save(cafeMapper.toEntity(cafeDto));
         return "redirect:/cafes";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("dishes", dishService.findAll());
-        model.addAttribute("cafe", cafeService.findOne(id));
+        model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
+        model.addAttribute("cafe", cafeMapper.toDto(cafeService.findOne(id)));
         return "cafes/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("cafe") @Valid Cafe cafe,
+    public String update(@ModelAttribute("cafe") /*@Valid*/ CafeDto cafeDto,
                          BindingResult bindingResult,
                          @PathVariable("id") int id, Model model) {
 
-        cafeValidator.validate(cafe, bindingResult);
+//        cafeValidator.validate(cafeMapper.toEntity(cafeDto), bindingResult);
 
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
 
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("dishes", dishService.findAll());
-            return "cafes/edit";
-        }
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("dishes", dishMapper.toDto(dishService.findAll()));
+//            return "cafes/edit";
+//        }
 
-        cafeService.update(id, cafe);
+//        Cafe cafe = cafeMapper.toEntity(cafeDto);
+//        cafe.setDishes(dishMapper.toEntity(cafeDto.getDishes()));
+//
+//        cafeService.update(id, cafe);
+        cafeService.update(id, cafeMapper.toEntity(cafeDto));
         return "redirect:/cafes";
     }
 
@@ -90,6 +102,4 @@ public class CafesController {
         cafeService.delete(id);
         return "redirect:/cafes";
     }
-
-
 }

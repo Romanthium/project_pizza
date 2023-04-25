@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -43,10 +44,10 @@ public class Dish {
     @JoinTable(name = "dish_ingredient",
             joinColumns = @JoinColumn(name = "id_dish"),
             inverseJoinColumns = @JoinColumn(name = "id_ingredient"))
-    private Set<Ingredient> ingredients;
+    private List<Ingredient> ingredients;
 
     @ManyToMany(mappedBy = "dishes")
-    private Set<Cafe> cafes;
+    private List<Cafe> cafes;
 
     @Override
     public boolean equals(Object o) {

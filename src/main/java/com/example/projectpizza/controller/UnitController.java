@@ -1,5 +1,7 @@
 package com.example.projectpizza.controller;
 
+import com.example.projectpizza.dto.UnitDto;
+import com.example.projectpizza.mapper.UnitMapper;
 import com.example.projectpizza.model.Unit;
 import com.example.projectpizza.service.UnitService;
 import com.example.projectpizza.utils.validator.UnitValidator;
@@ -16,60 +18,62 @@ public class UnitController {
     private final UnitService unitService;
 
     private final UnitValidator unitValidator;
+    private final UnitMapper unitMapper;
 
     @Autowired
-    public UnitController(UnitService unitService, UnitValidator unitValidator) {
+    public UnitController(UnitService unitService, UnitValidator unitValidator, UnitMapper unitMapper) {
         this.unitService = unitService;
         this.unitValidator = unitValidator;
+        this.unitMapper = unitMapper;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("units", unitService.findAll());
+        model.addAttribute("units", unitMapper.toDto(unitService.findAll()));
         return "units/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("unit", unitService.findOne(id));
+        model.addAttribute("unit", unitMapper.toDto(unitService.findOne(id)));
         return "units/show";
     }
 
     @GetMapping("/new")
-    public String newUnit(@ModelAttribute("unit") Unit unit) {
+    public String newUnit(@ModelAttribute("unit") UnitDto unitDto) {
         return "units/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("unit") @Valid Unit unit,
+    public String create(@ModelAttribute("unit") @Valid UnitDto unitDto,
                          BindingResult bindingResult) {
 
-        unitValidator.validate(unit, bindingResult);
+        unitValidator.validate(unitMapper.toEntity(unitDto), bindingResult);
 
         if (bindingResult.hasErrors())
             return "units/new";
 
-        unitService.save(unit);
+        unitService.save(unitMapper.toEntity(unitDto));
         return "redirect:/units";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("unit", unitService.findOne(id));
+        model.addAttribute("unit", unitMapper.toDto(unitService.findOne(id)));
         return "units/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("unit") @Valid Unit unit,
+    public String update(@ModelAttribute("unit") @Valid UnitDto unitDto,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
 
-        unitValidator.validate(unit, bindingResult);
+        unitValidator.validate(unitMapper.toEntity(unitDto), bindingResult);
 
         if (bindingResult.hasErrors())
             return "units/edit";
 
-        unitService.update(id, unit);
+        unitService.update(id, unitMapper.toEntity(unitDto));
         return "redirect:/units";
     }
 
@@ -78,6 +82,4 @@ public class UnitController {
         unitService.delete(id);
         return "redirect:/units";
     }
-
-
 }

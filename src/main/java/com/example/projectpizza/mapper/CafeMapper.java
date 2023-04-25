@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {DishMapper.class})
 public interface CafeMapper {
 
     CafeDto toDto(Cafe cafe);
@@ -14,4 +14,5 @@ public interface CafeMapper {
     Cafe toEntity(CafeDto cafeDto);
 
     List<CafeDto> toDto(List<Cafe> cafes);
+    List<Cafe> toEntity(List<CafeDto> cafeDtos);
 }

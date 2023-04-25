@@ -1,5 +1,7 @@
 package com.example.projectpizza.controller;
 
+import com.example.projectpizza.dto.IngredientDto;
+import com.example.projectpizza.mapper.IngredientMapper;
 import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.service.IngredientService;
 import com.example.projectpizza.utils.validator.IngredientValidator;
@@ -17,59 +19,63 @@ public class IngredientController {
 
     private final IngredientValidator ingredientValidator;
 
+    private final IngredientMapper ingredientMapper;
+
     @Autowired
-    public IngredientController(IngredientService ingredientService, IngredientValidator ingredientValidator) {
+    public IngredientController(IngredientService ingredientService, IngredientValidator ingredientValidator,
+                                IngredientMapper ingredientMapper) {
         this.ingredientService = ingredientService;
         this.ingredientValidator = ingredientValidator;
+        this.ingredientMapper = ingredientMapper;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("ingredients", ingredientService.findAll());
+        model.addAttribute("ingredients", ingredientMapper.toDto(ingredientService.findAll()));
         return "ingredients/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("ingredient", ingredientService.findOne(id));
+        model.addAttribute("ingredient", ingredientMapper.toDto(ingredientService.findOne(id)));
         return "ingredients/show";
     }
 
     @GetMapping("/new")
-    public String newIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
+    public String newIngredient(@ModelAttribute("ingredient") IngredientDto ingredientDto) {
         return "ingredients/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("ingredient") @Valid Ingredient ingredient,
+    public String create(@ModelAttribute("ingredient") @Valid IngredientDto ingredientDto,
                          BindingResult bindingResult) {
 
-        ingredientValidator.validate(ingredient, bindingResult);
+        ingredientValidator.validate(ingredientMapper.toEntity(ingredientDto), bindingResult);
 
         if (bindingResult.hasErrors())
             return "ingredients/new";
 
-        ingredientService.save(ingredient);
+        ingredientService.save(ingredientMapper.toEntity(ingredientDto));
         return "redirect:/ingredients";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("ingredient", ingredientService.findOne(id));
+        model.addAttribute("ingredient", ingredientMapper.toDto(ingredientService.findOne(id)));
         return "ingredients/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("ingredient") @Valid Ingredient ingredient,
+    public String update(@ModelAttribute("ingredient") @Valid IngredientDto ingredientDto,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
 
-        ingredientValidator.validate(ingredient, bindingResult);
+        ingredientValidator.validate(ingredientMapper.toEntity(ingredientDto), bindingResult);
 
         if (bindingResult.hasErrors())
             return "ingredients/edit";
 
-        ingredientService.update(id, ingredient);
+        ingredientService.update(id, ingredientMapper.toEntity(ingredientDto));
         return "redirect:/ingredients";
     }
 
@@ -78,6 +84,4 @@ public class IngredientController {
         ingredientService.delete(id);
         return "redirect:/ingredients";
     }
-
-
 }
