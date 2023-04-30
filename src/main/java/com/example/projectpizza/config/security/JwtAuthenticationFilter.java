@@ -13,7 +13,9 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JWTAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private final JwtService jwtService;
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -26,6 +28,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwtToken = authHeader.substring(7);
-        userLogin = // toDo: extract login from JWT Token
+        userLogin = jwtService.extractUserlogin(jwtToken); // toDo: extract login from JWT Token
     }
 }
