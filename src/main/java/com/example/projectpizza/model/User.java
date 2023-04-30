@@ -2,17 +2,17 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "userinfo")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
