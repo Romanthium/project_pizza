@@ -5,7 +5,7 @@
     <title>Add user</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/auth/registration}" th:object="${user}"> <!--  th:object="${dish}" -->
+<form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
     <label for="login">Username: </label>
     <input type="text" th:field="*{login}" id="login"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{login}">Username Error</div>
@@ -14,6 +14,10 @@
     <input type="password" th:field="*{password}" id="password"/>
     <div style="color:red" th:if="${#fields.hasErrors('size')}" th:errors="*{password}">Password Error</div>
     <br/>
+    <label for="role">Role: </label>
+    <select th:field="*{userRole.id}" id="role">
+        <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+    </select>
     <input type="submit" value="Create"/>
 </form>
 </body>
