@@ -17,17 +17,31 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    /* need without jwt
+    private final UserDetailsService userDetailsService;
+     */
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        /* need without jwt
+        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(userDetailsService);
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+         */
         httpSecurity
                 .csrf()
                 .disable()
+//                .authenticationManager(authenticationManager) // from alishev
                 .authorizeHttpRequests()
-                .requestMatchers("") //white list
+                .requestMatchers("/auth/login", "/error") //white list
                 .permitAll()
                 .anyRequest()
                 .authenticated()
+                .and()
+                .formLogin().loginPage("/auth/login")
+                .loginProcessingUrl("/process_login")
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/auth/login?error")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
