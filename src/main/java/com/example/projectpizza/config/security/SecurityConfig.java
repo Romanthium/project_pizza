@@ -17,13 +17,13 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-    /* need without jwt
+    /* to work without jwt
     private final UserDetailsService userDetailsService;
      */
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        /* need without jwt
+        /* to work without jwt
         AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService);
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
@@ -31,7 +31,7 @@ public class SecurityConfig {
         httpSecurity
                 .csrf()
                 .disable()
-//                .authenticationManager(authenticationManager) // from alishev
+//                .authenticationManager(authenticationManager) // to work without jwt
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/login", "/error") //white list
                 .permitAll()
