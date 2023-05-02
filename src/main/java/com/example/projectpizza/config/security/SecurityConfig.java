@@ -33,7 +33,12 @@ public class SecurityConfig {
 //                .disable()
                 .authenticationManager(authenticationManager)
                 .authorizeHttpRequests()
-                .requestMatchers("/").hasAnyRole("ADMIN", "GLOBAL_MANAGER", "CAFE_MANAGER")
+                .requestMatchers("/", "/cafes/**").hasAnyRole("ADMIN", "GLOBAL_MANAGER", "CAFE_MANAGER")
+                .requestMatchers("/dish-types/**",
+                        "/dishes/**",
+                        "/ingredients/**",
+                        "/units/**").hasAnyRole("ADMIN", "GLOBAL_MANAGER")
+                .requestMatchers("/auth/registration").hasRole("ADMIN")
                 .requestMatchers("/auth/login", "/error") //white list
                 .permitAll()
                 .anyRequest()
