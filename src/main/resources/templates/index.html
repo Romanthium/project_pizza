@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>All links</title>
@@ -7,10 +7,12 @@
 <body>
 
 <div><a href="cafes">Cafes</a></div>
+<div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
 <div><a href="dish-types">Dish types</a></div>
 <div><a href="dishes">Dishes</a></div>
 <div><a href="ingredients">Ingredients</a></div>
 <div><a href="units">Units</a></div>
+</div>
 
 </body>
 </html>
