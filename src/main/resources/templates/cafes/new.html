@@ -20,6 +20,12 @@
   </textarea>
   <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</div>
   <br/>
+  <label for="manager">Manager: </label>
+  <select th:field="*{manager.id}" id="manager">
+    <option th:each="manager : ${managers}" th:value="${manager.getId()}"
+            th:text="${manager.getLogin()}"></option>
+  </select>
+  <br/>
   <label for="dishes">Dishes: </label>
   <th:block th:each="dish : ${dishes}">
     <input type="checkbox" th:field="*{dishes}"
