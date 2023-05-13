@@ -29,6 +29,10 @@ public class Cafe {
     @NotBlank(message = "Address can'''t be empty")
     private String address;
 
+    @OneToOne
+    @JoinColumn(name="manager_id", referencedColumnName = "id")
+    private User manager;
+
     @ManyToMany
     @OrderBy("name")
     @JoinTable(name = "cafe_dish",
