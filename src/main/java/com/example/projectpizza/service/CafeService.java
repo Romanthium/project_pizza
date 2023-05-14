@@ -23,6 +23,10 @@ public class CafeService {
         return cafeRepository.findAll();
     }
 
+    public List<Cafe> findAllByManagerId(Integer id) {
+        return cafeRepository.findAllByManagerId(id);
+    }
+
     public Optional<Cafe> findByName(String name) {
         return cafeRepository.findByName(name)
                 .stream()
