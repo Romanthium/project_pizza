@@ -39,7 +39,7 @@ public class SecurityConfig {
                         "/ingredients/**",
                         "/units/**").hasAnyRole("ADMIN", "GLOBAL_MANAGER")
                 .requestMatchers("/auth/registration").hasRole("ADMIN")
-                .requestMatchers("/auth/login", "/error") //white list
+                .requestMatchers("/auth/login", "/error", "auth/access-denied") //white list
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -50,7 +50,10 @@ public class SecurityConfig {
                 .failureUrl("/auth/login?error")
                 .and()
                 .logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/auth/login");
+                .logoutSuccessUrl("/auth/login")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/auth/access-denied");
 
         return httpSecurity.build();
     }
