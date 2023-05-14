@@ -1,6 +1,6 @@
 package com.example.projectpizza.config.security;
 
-import com.example.projectpizza.repository.UserRepository;
+import com.example.projectpizza.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -65,7 +65,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository
+        return username -> userService
                 .findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
