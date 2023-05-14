@@ -4,7 +4,9 @@ import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.repository.UserRepository;
 import com.example.projectpizza.service.CafeService;
 import com.example.projectpizza.service.DishService;
+import com.example.projectpizza.service.UserService;
 import com.example.projectpizza.utils.validator.CafeValidator;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,38 +14,53 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/cafes")
 public class CafesController {
     private final CafeService cafeService;
     private final DishService dishService;
     private final CafeValidator cafeValidator;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public CafesController(CafeService cafeService, DishService dishService, CafeValidator cafeValidator, UserRepository userRepository) {
+    public CafesController(CafeService cafeService, DishService dishService, CafeValidator cafeValidator, UserRepository userRepository, UserService userService) {
         this.cafeService = cafeService;
         this.dishService = dishService;
         this.cafeValidator = cafeValidator;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("cafes", cafeService.findAll());
+    public String index(Model model, HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_CAFE_MANAGER")) {
+            model.addAttribute("cafes", cafeService.findAllByManagerId(getUserID(request.getUserPrincipal())));
+        } else {
+            model.addAttribute("cafes", cafeService.findAll());
+        }
         return "cafes/index";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("cafe", cafeService.findOne(id));
+    public String show(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+        Cafe cafe = cafeService.findOne(id);
+        if (request.isUserInRole("ROLE_CAFE_MANAGER")) {
+            if (cafe.getManager() != null && cafe.getManager().getId().compareTo(getUserID(request.getUserPrincipal())) == 0) {
+                model.addAttribute("cafe", cafe);
+            } else {
+                return "/auth/access-denied";
+            }
+        } else {
+            model.addAttribute("cafe", cafe);
+        }
         return "cafes/show";
     }
 
     @GetMapping("/new")
     public String newCafe(@ModelAttribute("cafe") Cafe cafe, Model model) {
         model.addAttribute("dishes", dishService.findAll());
-        model.addAttribute("managers", userRepository.findAllManagers());
+        model.addAttribute("managers", userService.findAllManagers());
         return "cafes/new";
     }
 
@@ -54,11 +71,11 @@ public class CafesController {
         cafeValidator.validate(cafe, bindingResult);
 
         model.addAttribute("dishes", dishService.findAll());
-        model.addAttribute("managers", userRepository.findAllManagers());
+        model.addAttribute("managers", userService.findAllManagers());
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishes", dishService.findAll());
-            model.addAttribute("managers", userRepository.findAllManagers());
+            model.addAttribute("managers", userService.findAllManagers());
             return "cafes/new";
         }
 
@@ -70,7 +87,7 @@ public class CafesController {
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("dishes", dishService.findAll());
         model.addAttribute("cafe", cafeService.findOne(id));
-        model.addAttribute("managers", userRepository.findAllManagers());
+        model.addAttribute("managers", userService.findAllManagers());
         return "cafes/edit";
     }
 
@@ -82,11 +99,11 @@ public class CafesController {
         cafeValidator.validate(cafe, bindingResult);
 
         model.addAttribute("dishes", dishService.findAll());
-        model.addAttribute("managers", userRepository.findAllManagers());
+        model.addAttribute("managers", userService.findAllManagers());
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishes", dishService.findAll());
-            model.addAttribute("managers", userRepository.findAllManagers());
+            model.addAttribute("managers", userService.findAllManagers());
             return "cafes/edit";
         }
 
@@ -100,5 +117,8 @@ public class CafesController {
         return "redirect:/cafes";
     }
 
+    private Integer getUserID(Principal principal) {
+        return userService.findByLogin(principal.getName()).get().getId();  //user always has an id
+    }
 
 }
