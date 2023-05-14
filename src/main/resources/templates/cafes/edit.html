@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Edit cafe</title>
@@ -20,11 +21,13 @@
   </textarea>
   <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</div>
   <br/>
+  <div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
   <label for="manager">Manager: </label>
   <select th:field="*{manager.id}" id="manager">
     <option th:each="manager : ${managers}" th:value="${manager.getId()}"
             th:text="${manager.getLogin()}"></option>
   </select>
+  </div>
   <br/>
   <label for="dishes">Dishes: </label>
   <th:block th:each="dish : ${dishes}">

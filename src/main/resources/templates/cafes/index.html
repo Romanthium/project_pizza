@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Our Cafes</title>
@@ -12,7 +13,8 @@
 
 <br/>
 <hr/>
-
+<div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
 <a href="/cafes/new">Add new cafe</a>
+</div>
 </body>
 </html>
