@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,6 +21,14 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public List<User> findAllManagers() {
+        return userRepository.findAllManagers();
+    }
+
+    public  Optional<User> findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     public User findOne(int id) {
