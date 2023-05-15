@@ -3,43 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
-    <link th:href="@{/bootstrap/css/bootstrap.min.css}" th:rel="stylesheet">
+        <link th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css"
+           rel="stylesheet" type="text/css"> <!-- 1st href for thymeleaf, 2nd - for intellij preview  -->
 </head>
 <body>
-
-<table class="table table-striped">
-    <tbody>
-    <tr>
-        <td>
-            <a href="cafes">Cafes</a>
-        </td>
-    </tr>
-    <tr>
-        <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
-            <a href="dish-types">Dish types</a>
-        </td>
-    </tr>
-    <tr>
-        <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
-            <a href="dishes">Dishes</a>
-        </td>
-    </tr>
-    <tr>
-        <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
-            <a href="ingredients">Ingredients</a>
-        </td>
-    </tr>
-    <tr>
-        <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
-            <a href="units">Units</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<div class="col-md-10 mx-auto col-lg-5">
-<form th:action="@{/logout}" th:method="POST">
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Logout</button>
-</form>
+<div style="width:30%">
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>
+                <a href="cafes">Cafes</a>
+            </td>
+        </tr>
+        <tr>
+            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+                <a href="dish-types">Dish types</a>
+            </td>
+        </tr>
+        <tr>
+            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+                <a href="dishes">Dishes</a>
+            </td>
+        </tr>
+        <tr>
+            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+                <a href="ingredients">Ingredients</a>
+            </td>
+        </tr>
+        <tr>
+            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+                <a href="units">Units</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="col-md-10 mx-auto col-lg-5">
+        <form th:action="@{/logout}" th:method="POST">
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Logout</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
