@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add user</title>
+    <title>Add new user</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
-    <label for="login">Username: </label>
-    <input type="text" th:field="*{login}" id="login"/>
-    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Username Error</div>
-    <br/>
-    <label for="password">Password: </label>
-    <input type="password" th:field="*{password}" id="password"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-    <br/>
-    <label for="role">Role: </label>
-    <select th:field="*{userRole.id}" id="role">
-        <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
-    </select>
-    <input type="submit" value="Create"/>
-</form>
+<div style="padding: 20px">
+    <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}" style="width: 50%">
+        <div class="mb-3">
+            <label for="login" class="form-label">Username: </label>
+            <input type="text" th:field="*{login}" class="form-control" id="login"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Username
+                Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password: </label>
+            <input type="password" th:field="*{password}" class="form-control" id="password"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                Password Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="role" class="form-label">User role: </label>
+            <select th:field="*{userRole.id}" class="form-select" id="role">
+                <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add new user"/>
+    </form>
+</div>
 </body>
 </html>
