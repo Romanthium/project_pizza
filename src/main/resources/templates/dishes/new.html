@@ -5,6 +5,12 @@
     <title>Add new dish</title>
     <link th:href="@{/bootstrap/css/bootstrap.min.css}"
           href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chkboxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    </style>
 </head>
 <body>
 <div style="padding: 20px">
@@ -46,12 +52,15 @@
         </div>
         <div class="mb-3">
             <label for="ingredients" class="form-label">Ingredients:</label>
-            <th:block th:each="ingredient : ${ingredients}">
-                <br/>
-                <input type="checkbox" class="form-check-input" th:field="*{ingredients}"
-                       th:value="${ingredient.getId()}" id="ingredients"/>
-                <label th:text="${ingredient.getName()}"></label>
-            </th:block>
+            <div class="chkboxes">
+                <th:block th:each="ingredient : ${ingredients}">
+                    <div>
+                        <input type="checkbox" class="form-check-input" th:field="*{ingredients}"
+                               th:value="${ingredient.getId()}" id="ingredients"/>
+                        <label th:text="${ingredient.getName()}"></label>
+                    </div>
+                </th:block>
+            </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Add dish"/>
     </form>

@@ -6,6 +6,12 @@
     <title>Edit cafe information</title>
     <link th:href="@{/bootstrap/css/bootstrap.min.css}"
           href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chkboxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    </style>
 </head>
 <body>
 <div style="padding: 20px">
@@ -49,12 +55,15 @@
             <!--            </th:block>-->
             <!--            </div>-->
             <label for="dishes" class="form-label">Dishes:</label>
-            <th:block th:each="dish : ${dishes}">
-                <br/>
-                <input type="checkbox" class="form-check-input" th:value="${dish.getId()}" th:field="*{dishes}"
-                       id="dishes"/>
-                <label th:text="${dish.getName()}"></label>
-            </th:block>
+            <div class="chkboxes">
+                <th:block th:each="dish : ${dishes}">
+                    <div>
+                        <input type="checkbox" class="form-check-input" th:value="${dish.getId()}" th:field="*{dishes}"
+                               id="dishes"/>
+                        <label th:text="${dish.getName()}"></label>
+                    </div>
+                </th:block>
+            </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Update cafe"/>
     </form>
