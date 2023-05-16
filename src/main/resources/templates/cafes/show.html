@@ -3,24 +3,36 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Cafe</title>
+    <title>Cafe information</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<p th:text="${cafe.getName()}">VALUE</p>
-<p th:text="${'Phone: ' + cafe.getPhone()}">VALUE</p>
-<p th:text="${'Address: ' + cafe.getAddress()}">VALUE</p>
-<!--<p th:each="dish : ${cafe.getDishes()}" th:text="${dish.getName()}">VALUE</p>-->
-<p>
-    <th:block th:each="dish,iterStat : ${cafe.getDishes()}">
-        <span th:text="${dish.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
-    </th:block>
-</p>
-
-<a th:href="@{/cafes/{id}/edit(id=${cafe.getId()})}">Edit</a>
-<div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
-<form th:method="DELETE" th:action="@{/cafes/{id}(id=${cafe.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+<div style="padding: 20px">
+    <div style="width: 50%">
+        <div class="mb-3 row">
+            <p th:text="${cafe.getName()}" class="col-form-label fs-1">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Phone: ' + cafe.getPhone()}" class="col-sm-2 col-form-label">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Address: ' + cafe.getAddress()}" class="col-sm-2 col-form-label">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p class="col-form-label">
+                <th:block th:each="dish,iterStat : ${cafe.getDishes()}">
+                    <span th:text="${dish.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
+                </th:block>
+            </p>
+        </div>
+        <a th:href="@{/cafes/{id}/edit(id=${cafe.getId()})}" class="btn btn-primary" role="button" style="width: 100px">Edit</a>
+        <div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')" style="margin-top: 5px">
+            <form th:method="DELETE" th:action="@{/cafes/{id}(id=${cafe.getId()})}">
+                <input type="submit" class="btn btn-danger" style="width: 100px" value="Delete"/>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
