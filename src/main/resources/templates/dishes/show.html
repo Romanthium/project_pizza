@@ -2,26 +2,44 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dish</title>
+    <title>Dish information</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<p th:text="${dish.getName()}">VALUE</p>
-<p th:text="${'Dish type: ' + dish.getDishType().getName()}">VALUE</p>
-<p th:text="${'Size: ' + dish.getSize()}">VALUE</p>
-<p th:text="${'Unit: ' + dish.getUnit().getName()}">VALUE</p>
-<p th:text="${'Price: ' + #numbers.formatDecimal(dish.getPrice(),1,2)}">VALUE</p>
-<p th:text="${'Ingredients: '}">VALUE</p>
-<!--<p th:each="ingredient : ${dish.getIngredients()}" th:text="${ingredient.getName()}">VALUE</p>-->
-<p>
-<th:block th:each="ingredient,iterStat : ${dish.getIngredients()}">
-    <span th:text="${ingredient.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
-</th:block>
-</p>
-
-<a th:href="@{/dishes/{id}/edit(id=${dish.getId()})}">Edit</a>
-
-<form th:method="DELETE" th:action="@{/dishes/{id}(id=${dish.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+<div style="padding: 20px">
+    <div style="width: 50%">
+        <div class="mb-3 row">
+            <p th:text="${dish.getName()}" class="col-form-label fs-1">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Dish type: ' + dish.getDishType().getName()}" class="col-form-label">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Size: ' + dish.getSize()}" class="col-form-label">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Measure unit: ' + dish.getUnit().getName()}" class="col-form-label">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Price: ' + #numbers.formatDecimal(dish.getPrice(),1,2)}" class="col-form-label">
+                VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Ingredients: '}" class="col-form-label">VALUE</p>
+            <p class="col-form-label">
+                <th:block th:each="ingredient,iterStat : ${dish.getIngredients()}">
+                    <span th:text="${ingredient.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
+                </th:block>
+            </p>
+        </div>
+        <a th:href="@{/dishes/{id}/edit(id=${dish.getId()})}" class="btn btn-primary" role="button"
+           style="width: 100px">Edit</a>
+        <div style="margin-top: 5px"></div>
+        <form th:method="DELETE" th:action="@{/dishes/{id}(id=${dish.getId()})}">
+            <input type="submit" class="btn btn-danger" style="width: 100px" value="Delete"/>
+        </form>
+    </div>
+</div>
 </body>
 </html>
