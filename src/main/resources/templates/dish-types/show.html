@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dish types</title>
+    <title>Dish type information</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<p th:text="${dishType.getName()}">VALUE</p>
-
-<a th:href="@{/dish-types/{id}/edit(id=${dishType.getId()})}">Edit</a>
-
-<form th:method="DELETE" th:action="@{/dish-types/{id}(id=${dishType.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+<div style="padding: 20px">
+    <div style="width: 50%">
+        <div class="mb-3 row">
+            <p th:text="${dishType.getName()}" class="col-form-label fs-3">VALUE</p>
+        </div>
+        <a th:href="@{/dish-types/{id}/edit(id=${dishType.getId()})}" class="btn btn-primary" role="button"
+           style="width: 100px">Edit</a>
+        <form th:method="DELETE" th:action="@{/dish-types/{id}(id=${dishType.getId()})}" style="margin-top: 5px">
+            <input type="submit" class="btn btn-danger" style="width: 100px" value="Delete"/>
+        </form>
+    </div>
+</div>
 </body>
 </html>

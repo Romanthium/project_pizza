@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dish types</title>
+    <title>All Dish types</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:each="dishType : ${dishTypes}">
-    <a th:href="@{/dish-types/{id}(id=${dishType.getId()})}"
-       th:text="${dishType.getName()}">dish-type_name</a>
+<div style="padding: 20px">
+    <div style="width:30%">
+        <table class="table table-striped">
+            <tbody>
+            <tr th:each="dishType : ${dishTypes}">
+                <td>
+                    <a th:href="@{/dish-types/{id}(id=${dishType.getId()})}"
+                       th:text="${dishType.getName()}">dish-type_name</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/dish-types/new" class="btn btn-primary">Add new dish type</a>
 </div>
-
-<br/>
-<hr/>
-
-<a href="/dish-types/new">Add a new dish type</a>
 </body>
 </html>
