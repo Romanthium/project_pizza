@@ -3,18 +3,27 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Our Cafes</title>
+    <title>All Cafes</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:each="cafe : ${cafes}">
-    <a th:href="@{/cafes/{id}(id=${cafe.getId()})}"
-       th:text="${cafe.getName()}">cafe_name</a>
-</div>
-
-<br/>
-<hr/>
-<div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
-<a href="/cafes/new">Add new cafe</a>
+<div style="padding: 20px">
+    <div style="width:30%">
+        <table class="table table-striped">
+            <tbody>
+            <tr th:each="cafe : ${cafes}">
+                <td>
+                    <a th:href="@{/cafes/{id}(id=${cafe.getId()})}"
+                       th:text="${cafe.getName()}">cafe_name</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')" style="margin: auto 25%">
+            <a href="/cafes/new" class="btn btn-primary" role="button">Add new cafe</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
