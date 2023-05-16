@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ingredients</title>
+    <title>All Ingredients</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:each="ingredient : ${ingredients}">
-    <a th:href="@{/ingredients/{id}(id=${ingredient.getId()})}"
-       th:text="${ingredient.getName()}">ingredient_name</a>
+<div style="padding: 20px">
+    <div style="width:30%">
+        <table class="table table-striped">
+            <tbody>
+            <tr th:each="ingredient : ${ingredients}">
+                <td>
+                    <a th:href="@{/ingredients/{id}(id=${ingredient.getId()})}"
+                       th:text="${ingredient.getName()}">ingredient_name</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/ingredients/new" class="btn btn-primary">Add new ingredient</a>
 </div>
-
-<br/>
-<hr/>
-
-<a href="/ingredients/new">Add a new ingredient</a>
 </body>
 </html>
