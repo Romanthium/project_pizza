@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit dish type</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/dish-types/{id}(id=${dishType.getId()})}" th:object="${dishType}">
-  <label for="name">Name: </label>
-  <input type="text" th:field="*{name}" id="name"/>
-  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-  <br/>
-  <input type="submit" value="Update"/>
-</form>
+<div style="padding: 20px">
+    <form th:method="PATCH" th:action="@{/dish-types/{id}(id=${dishType.getId()})}" th:object="${dishType}"
+          style="width: 50%">
+        <div class="mb-3">
+            <label for="name" class="form-label">Dish type name:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update dish type"/>
+    </form>
+</div>
 </body>
 </html>
