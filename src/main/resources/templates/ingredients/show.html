@@ -2,15 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ingredients</title>
+    <title>Ingredient information</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<p th:text="${ingredient.getName()}">VALUE</p>
+<div style="padding: 20px">
+    <div style="width: 50%">
+        <div class="mb-3 row">
+            <p th:text="${ingredient.getName()}" class="col-form-label fs-3">VALUE</p>
+        </div>
 
-<a th:href="@{/ingredients/{id}/edit(id=${ingredient.getId()})}">Edit</a>
+        <a th:href="@{/ingredients/{id}/edit(id=${ingredient.getId()})}" class="btn btn-primary" role="button"
+           style="width: 100px">Edit</a>
 
-<form th:method="DELETE" th:action="@{/ingredients/{id}(id=${ingredient.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+        <form th:method="DELETE" th:action="@{/ingredients/{id}(id=${ingredient.getId()})}" style="margin-top: 5px">
+            <input type="submit" class="btn btn-danger" style="width: 100px" value="Delete"/>
+        </form>
+    </div>
+</div>
 </body>
 </html>
