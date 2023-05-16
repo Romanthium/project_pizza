@@ -5,6 +5,12 @@
     <title>Add new cafe</title>
     <link th:href="@{/bootstrap/css/bootstrap.min.css}"
           href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chkboxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    </style>
 </head>
 <body>
 <div style="padding: 20px">
@@ -39,18 +45,20 @@
         </div>
         <div class="mb-3">
             <label for="dishes" class="form-label">Dishes:</label>
-            <th:block th:each="dish : ${dishes}">
-                <br/>
-                <input type="checkbox" class="form-check-input" th:value="${dish.getId()}" th:field="*{dishes}"
-                       id="dishes"/>
-                <label th:text="${dish.getName()}"></label>
-                <!--                <input type="checkbox" class="form-check-input"-->
-                <!--                       th:each="dish : ${dishes}"-->
-                <!--                       th:text="' '+${dish.getName()}+' '"-->
-                <!--                       th:value="${dish.getId()}"-->
-                <!--                       th:field="*{dishes}" id="dishes"/>-->
-            </th:block>
-
+            <div class="chkboxes">
+                <th:block th:each="dish : ${dishes}">
+                    <div>
+                        <input type="checkbox" class="form-check-input" th:value="${dish.getId()}" th:field="*{dishes}"
+                               id="dishes"/>
+                        <label th:text="${dish.getName()}"></label>
+                    </div>
+                    <!--                <input type="checkbox" class="form-check-input"-->
+                    <!--                       th:each="dish : ${dishes}"-->
+                    <!--                       th:text="' '+${dish.getName()}+' '"-->
+                    <!--                       th:value="${dish.getId()}"-->
+                    <!--                       th:field="*{dishes}" id="dishes"/>-->
+                </th:block>
+            </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Add cafe"/>
     </form>
