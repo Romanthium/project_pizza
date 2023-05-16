@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New unit</title>
+    <title>New measure unit</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form th:method="POST" th:action="@{/units}" th:object="${unit}">
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <input type="submit" value="Create"/>
-</form>
+<div style="padding: 20px">
+    <form th:method="POST" th:action="@{/units}" th:object="${unit}" style="width: 50%">
+        <div class="mb-3">
+            <label for="name" class="form-label">Measure unit name:</label>
+            <input type="text" class="form-control" th:field="*{name}" id="name"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                Error
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add measure unit"/>
+    </form>
+</div>
 </body>
 </html>
