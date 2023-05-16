@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Units</title>
+    <title>All measure units</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:each="unit : ${units}">
-    <a th:href="@{/units/{id}(id=${unit.getId()})}"
-       th:text="${unit.getName()}">unit_name</a>
+<div style="padding: 20px">
+    <div style="width:30%">
+        <table class="table table-striped">
+            <tbody>
+            <tr th:each="unit : ${units}">
+                <td>
+                    <a th:href="@{/units/{id}(id=${unit.getId()})}"
+                       th:text="${unit.getName()}">unit_name</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/units/new" class="btn btn-primary">Add measure unit</a>
 </div>
-
-<br/>
-<hr/>
-
-<a href="/units/new">Add a new unit</a>
 </body>
 </html>

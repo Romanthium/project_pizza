@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Units</title>
+    <title>Measure unit information</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<p th:text="${unit.getName()}">VALUE</p>
-
-<a th:href="@{/units/{id}/edit(id=${unit.getId()})}">Edit</a>
-
-<form th:method="DELETE" th:action="@{/units/{id}(id=${unit.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+<div style="padding: 20px">
+    <div style="width: 50%">
+        <div class="mb-3 row">
+            <p th:text="${unit.getName()}" class="col-form-label fs-3">VALUE</p>
+        </div>
+        <a th:href="@{/units/{id}/edit(id=${unit.getId()})}" class="btn btn-primary" role="button"
+           style="width: 100px">Edit</a>
+        <form th:method="DELETE" th:action="@{/units/{id}(id=${unit.getId()})}" style="margin-top: 5px">
+            <input type="submit" class="btn btn-danger" style="width: 100px" value="Delete"/>
+        </form>
+    </div>
+</div>
 </body>
 </html>
