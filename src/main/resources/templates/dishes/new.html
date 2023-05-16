@@ -2,40 +2,59 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New dish</title>
+    <title>Add new dish</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form th:method="POST" th:action="@{/dishes}" th:object="${dish}"> <!--  th:object="${dish}" -->
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <label for="dish-type">Dish type: </label>
-    <select th:field="*{dishType.id}" id="dish-type"> <!-- th:object="${dishType}"  th:name="dishType.id" -->
-        <option th:each="dishType : ${dishTypes}" th:value="${dishType.getId()}"
-                th:text="${dishType.getName()}"></option>
-    </select>
-    <br/>
-    <label for="size">Size: </label>
-    <input type="text" th:field="*{size}" id="size"/>
-    <div style="color:red" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size Error</div>
-    <br/>
-    <label for="unit">Unit: </label>
-    <select th:field="*{unit.id}" id="unit"> <!-- th:object="${unit}" th:name="unit.id" -->
-        <option th:each="unit : ${units}" th:value="${unit.getId()}" th:text="${unit.getName()}"></option>
-    </select>
-    <br/>
-    <label for="price">Price: </label>
-    <input type="text" th:field="*{price}" id="price"/>
-    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
-    <br/>
-    <label for="ingredients">Ingredients: </label>
-    <th:block th:each="ingredient : ${ingredients}">
-        <input type="checkbox" th:field="*{ingredients}"
-               th:value="${ingredient.getId()}" th:text="${ingredient.getName()}" id="ingredients">
-    </th:block>
-    <br/>
-    <input type="submit" value="Create"/>
-</form>
+<div style="padding: 20px">
+    <form th:method="POST" th:action="@{/dishes}" th:object="${dish}" style="width: 50%"> <!--  th:object="${dish}" -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Dish name:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="dish-type" class="form-label">Dish type:</label>
+            <select th:field="*{dishType.id}" class="form-select" id="dish-type">
+                <!-- th:object="${dishType}"  th:name="dishType.id" -->
+                <option th:each="dishType : ${dishTypes}" th:value="${dishType.getId()}"
+                        th:text="${dishType.getName()}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="size" class="form-label">Dish size:</label>
+            <input type="text" th:field="*{size}" class="form-control" id="size"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size
+                Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="unit" class="form-label">Measure unit:</label>
+            <select th:field="*{unit.id}" class="form-select" id="unit"> <!-- th:object="${unit}" th:name="unit.id" -->
+                <option th:each="unit : ${units}" th:value="${unit.getId()}" th:text="${unit.getName()}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Dish price:</label>
+            <input type="text" th:field="*{price}" class="form-control" id="price"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price
+                Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="ingredients" class="form-label">Ingredients:</label>
+            <th:block th:each="ingredient : ${ingredients}">
+                <br/>
+                <input type="checkbox" class="form-check-input" th:field="*{ingredients}"
+                       th:value="${ingredient.getId()}" id="ingredients"/>
+                <label th:text="${ingredient.getName()}"></label>
+            </th:block>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add dish"/>
+    </form>
+</div>
 </body>
 </html>
