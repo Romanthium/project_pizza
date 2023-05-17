@@ -39,6 +39,7 @@
         <div class="mb-3">
             <label for="manager" class="form-label">Manager:</label>
             <select th:field="*{manager.id}" class="form-select" id="manager">
+                <option th:value="-1"></option> <!-- empty line for deselecting -->
                 <option th:each="manager : ${managers}" th:value="${manager.getId()}"
                         th:text="${manager.getLogin()}"></option>
             </select>

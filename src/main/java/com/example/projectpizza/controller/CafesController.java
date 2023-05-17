@@ -106,7 +106,9 @@ public class CafesController {
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/edit";
         }
-
+        if (cafe.getManager().getId() == -1) {
+            cafe.setManager(null);
+        }
         cafeService.update(id, cafe);
         return "redirect:/cafes";
     }
