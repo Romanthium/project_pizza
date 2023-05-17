@@ -1,7 +1,6 @@
 package com.example.projectpizza.controller;
 
 import com.example.projectpizza.model.Cafe;
-import com.example.projectpizza.repository.UserRepository;
 import com.example.projectpizza.service.CafeService;
 import com.example.projectpizza.service.DishService;
 import com.example.projectpizza.service.UserService;
@@ -25,7 +24,7 @@ public class CafesController {
     private final UserService userService;
 
     @Autowired
-    public CafesController(CafeService cafeService, DishService dishService, CafeValidator cafeValidator, UserRepository userRepository, UserService userService) {
+    public CafesController(CafeService cafeService, DishService dishService, CafeValidator cafeValidator, UserService userService) {
         this.cafeService = cafeService;
         this.dishService = dishService;
         this.cafeValidator = cafeValidator;
@@ -37,7 +36,7 @@ public class CafesController {
         if (request.isUserInRole("ROLE_CAFE_MANAGER")) {
             model.addAttribute("cafes", cafeService.findAllByManagerId(getUserID(request.getUserPrincipal())));
         } else {
-            model.addAttribute("cafes", cafeService.findAll());
+            model.addAttribute("cafes", cafeService.findAllOrdered());
         }
         return "cafes/index";
     }
@@ -59,7 +58,7 @@ public class CafesController {
 
     @GetMapping("/new")
     public String newCafe(@ModelAttribute("cafe") Cafe cafe, Model model) {
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishService.findAllOrdered());
         model.addAttribute("managers", userService.findAllManagers());
         return "cafes/new";
     }
@@ -70,11 +69,11 @@ public class CafesController {
 
         cafeValidator.validate(cafe, bindingResult);
 
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishService.findAllOrdered());
         model.addAttribute("managers", userService.findAllManagers());
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("dishes", dishService.findAll());
+            model.addAttribute("dishes", dishService.findAllOrdered());
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/new";
         }
@@ -85,7 +84,7 @@ public class CafesController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishService.findAllOrdered());
         model.addAttribute("cafe", cafeService.findOne(id));
         model.addAttribute("managers", userService.findAllManagers());
         return "cafes/edit";
@@ -98,11 +97,11 @@ public class CafesController {
 
         cafeValidator.validate(cafe, bindingResult);
 
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishService.findAllOrdered());
         model.addAttribute("managers", userService.findAllManagers());
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("dishes", dishService.findAll());
+            model.addAttribute("dishes", dishService.findAllOrdered());
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/edit";
         }
