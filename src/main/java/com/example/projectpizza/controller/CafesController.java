@@ -77,6 +77,9 @@ public class CafesController {
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/new";
         }
+        if (cafe.getManager().getId() == -1) { //need for deselecting
+            cafe.setManager(null);
+        }
 
         cafeService.save(cafe);
         return "redirect:/cafes";
