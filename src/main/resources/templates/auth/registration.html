@@ -25,9 +25,19 @@
         </div>
         <div class="mb-3">
             <label for="role" class="form-label">User role: </label>
-            <select th:field="*{userRole.id}" class="form-select" id="role">
-                <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
-            </select>
+            <!--            <select th:field="*{userRole.id}" class="form-select" id="role">-->
+            <!--                <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>-->
+            <!--            </select>-->
+            <th:block th:each="role : ${roles}">
+                <div>
+                    <input type="radio" id="role" th:field="*{userRole.id}" th:value="${role.getId()}"/>
+                    <label for="role" th:text="${role.getName()}" class="form-label">user_role</label>
+                </div>
+            </th:block>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('userRole')}"
+                 th:errors="*{userRole}">
+                User Role Error
+            </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Add new user"/>
     </form>
