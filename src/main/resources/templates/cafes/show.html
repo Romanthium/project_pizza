@@ -20,6 +20,11 @@
             <p th:text="${'Address: ' + cafe.getAddress()}" class="col-form-label">VALUE</p>
         </div>
         <div class="mb-3 row">
+            <p class="col-form-label">Manager:
+                <span th:text="*{cafe.getManager()}? *{cafe.getManager().getUsername()}: 'manager is not selected'"></span>
+            </p>
+        </div>
+        <div class="mb-3 row">
             <p class="col-form-label">
                 <th:block th:each="dish,iterStat : ${cafe.getDishes()}">
                     <span th:text="${dish.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
