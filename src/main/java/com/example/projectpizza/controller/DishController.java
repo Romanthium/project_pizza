@@ -36,7 +36,7 @@ public class DishController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("dishes", dishService.findAll());
+        model.addAttribute("dishes", dishService.findAllOrdered());
         return "dishes/index";
     }
 
@@ -49,9 +49,9 @@ public class DishController {
     @GetMapping("/new")
     public String newDish(@ModelAttribute("dish") Dish dish, Model model) {
 
-        model.addAttribute("units", unitService.findAll());
-        model.addAttribute("dishTypes", dishTypeService.findAll());
-        model.addAttribute("ingredients", ingredientService.findAll());
+        model.addAttribute("units", unitService.findAllOrdered());
+        model.addAttribute("dishTypes", dishTypeService.findAllOrdered());
+        model.addAttribute("ingredients", ingredientService.findAllOrdered());
 
         return "dishes/new";
     }
@@ -63,9 +63,9 @@ public class DishController {
         dishValidator.validate(dish, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("units", unitService.findAll());
-            model.addAttribute("dishTypes", dishTypeService.findAll());
-            model.addAttribute("ingredients", ingredientService.findAll());
+            model.addAttribute("units", unitService.findAllOrdered());
+            model.addAttribute("dishTypes", dishTypeService.findAllOrdered());
+            model.addAttribute("ingredients", ingredientService.findAllOrdered());
             return "dishes/new";
         }
 
@@ -76,9 +76,9 @@ public class DishController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
 
-        model.addAttribute("units", unitService.findAll());
-        model.addAttribute("dishTypes", dishTypeService.findAll());
-        model.addAttribute("ingredients", ingredientService.findAll());
+        model.addAttribute("units", unitService.findAllOrdered());
+        model.addAttribute("dishTypes", dishTypeService.findAllOrdered());
+        model.addAttribute("ingredients", ingredientService.findAllOrdered());
 
         model.addAttribute("dish", dishService.findOne(id));
         return "dishes/edit";
@@ -92,9 +92,9 @@ public class DishController {
         dishValidator.validate(dish, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("units", unitService.findAll());
-            model.addAttribute("dishTypes", dishTypeService.findAll());
-            model.addAttribute("ingredients", ingredientService.findAll());
+            model.addAttribute("units", unitService.findAllOrdered());
+            model.addAttribute("dishTypes", dishTypeService.findAllOrdered());
+            model.addAttribute("ingredients", ingredientService.findAllOrdered());
 
             return "dishes/edit";
         }

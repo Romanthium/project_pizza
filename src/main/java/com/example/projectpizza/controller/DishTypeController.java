@@ -24,7 +24,7 @@ public class DishTypeController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("dishTypes", dishTypeService.findAll());
+        model.addAttribute("dishTypes", dishTypeService.findAllOrdered());
         return "dish-types/index";
     }
 

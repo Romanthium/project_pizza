@@ -25,7 +25,7 @@ public class IngredientController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("ingredients", ingredientService.findAll());
+        model.addAttribute("ingredients", ingredientService.findAllOrdered());
         return "ingredients/index";
     }
 

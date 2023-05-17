@@ -25,7 +25,7 @@ public class UnitController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("units", unitService.findAll());
+        model.addAttribute("units", unitService.findAllOrdered());
         return "units/index";
     }
 
