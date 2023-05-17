@@ -106,7 +106,7 @@ public class CafesController {
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/edit";
         }
-        if (cafe.getManager().getId() == -1) {
+        if (cafe.getManager().getId() == -1) { //need fo deselecting
             cafe.setManager(null);
         }
         cafeService.update(id, cafe);
