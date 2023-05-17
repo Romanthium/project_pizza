@@ -2,6 +2,7 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,6 +32,7 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @NotNull(message = "User Role is not selected")
     private UserRole userRole;
 
     @OneToMany(mappedBy = "manager")
