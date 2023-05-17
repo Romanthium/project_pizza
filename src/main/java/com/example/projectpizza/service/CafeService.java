@@ -23,6 +23,10 @@ public class CafeService {
         return cafeRepository.findAll();
     }
 
+    public List<Cafe> findAllOrdered() {
+        return cafeRepository.findAllByOrderByNameAsc();
+    }
+
     public List<Cafe> findAllByManagerId(Integer id) {
         return cafeRepository.findAllByManagerId(id);
     }

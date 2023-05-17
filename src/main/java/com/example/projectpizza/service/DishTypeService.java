@@ -1,6 +1,5 @@
 package com.example.projectpizza.service;
 
-import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.model.DishType;
 import com.example.projectpizza.repository.DishTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,10 @@ public class DishTypeService {
 
     public List<DishType> findAll() {
         return dishTypeRepository.findAll();
+    }
+
+    public List<DishType> findAllOrdered() {
+        return dishTypeRepository.findAllByOrderByNameAsc();
     }
 
     public DishType findOne(int id) {

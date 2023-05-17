@@ -23,6 +23,10 @@ public class DishService {
         return dishRepository.findAll();
     }
 
+    public List<Dish> findAllOrdered() {
+        return dishRepository.findAllByOrderByDishTypeNameAsc();
+    }
+
     public Dish findOne(int id) {
         return dishRepository.findById(id).orElse(null);
     }

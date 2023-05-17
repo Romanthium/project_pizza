@@ -1,6 +1,5 @@
 package com.example.projectpizza.service;
 
-import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,10 @@ public class IngredientService {
 
     public List<Ingredient> findAll() {
         return ingredientRepository.findAll();
+    }
+
+    public List<Ingredient> findAllOrdered() {
+        return ingredientRepository.findAllByOrderByNameAsc();
     }
 
     public Ingredient findOne(int id) {

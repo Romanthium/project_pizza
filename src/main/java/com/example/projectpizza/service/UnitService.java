@@ -1,6 +1,5 @@
 package com.example.projectpizza.service;
 
-import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.model.Unit;
 import com.example.projectpizza.repository.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,10 @@ public class UnitService {
 
     public List<Unit> findAll() {
         return unitRepository.findAll();
+    }
+
+    public List<Unit> findAllOrdered() {
+        return unitRepository.findAllByOrderByNameAsc();
     }
 
     public Unit findOne(int id) {
