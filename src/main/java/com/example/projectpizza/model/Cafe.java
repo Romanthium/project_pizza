@@ -29,7 +29,7 @@ public class Cafe {
     @NotBlank(message = "Address can'''t be empty")
     private String address;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="manager_id", referencedColumnName = "id")
     private User manager;
 

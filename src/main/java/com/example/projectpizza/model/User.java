@@ -33,8 +33,8 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private UserRole userRole;
 
-    @OneToOne(mappedBy = "manager")
-    private Cafe cafe;
+    @OneToMany(mappedBy = "manager")
+    private List<Cafe> cafe;
 
     @Override
     public boolean equals(Object o) {
