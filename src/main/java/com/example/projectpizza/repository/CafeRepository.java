@@ -15,7 +15,10 @@ public interface CafeRepository extends JpaRepository<Cafe, Integer> {
     List<Cafe> findByName(String name);
 
     @Query(value = "SELECT * FROM pizza_cafe_db.cafe as cafe " +
-            "WHERE cafe.manager_id = :id",
+            "WHERE cafe.manager_id = :id " +
+            "ORDER BY cafe.name",
             nativeQuery = true)
     List<Cafe> findAllByManagerId(@Param("id") Integer id);
+
+    List<Cafe> findAllByOrderByNameAsc();
 }

@@ -25,7 +25,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             " user_info.role_id as role_id" +
             " FROM pizza_cafe_db.userinfo as user_info" +
             " INNER JOIN pizza_cafe_db.user_role user_role ON role_id = user_role.id" +
-            " WHERE user_role.name = 'ROLE_CAFE_MANAGER'",
+            " WHERE user_role.name = 'ROLE_CAFE_MANAGER'" +
+            " ORDER BY login",
             nativeQuery = true)
     List<User> findAllManagers();
 }

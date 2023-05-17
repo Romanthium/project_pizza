@@ -11,4 +11,6 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     List<Dish> findByName(String name);
 
     List<Dish> findByNameAndIdNot(String name, Integer id);
+
+    List<Dish> findAllByOrderByDishTypeNameAsc();
 }
