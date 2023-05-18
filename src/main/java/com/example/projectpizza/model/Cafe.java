@@ -3,6 +3,7 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class Cafe {
     private String name;
 
     @NotBlank(message = "Phone can'''t be empty")
+    @Pattern(regexp = "^\\d+$", message = "Can contain only digits")
     private String phone;
     @NotBlank(message = "Address can'''t be empty")
     private String address;
