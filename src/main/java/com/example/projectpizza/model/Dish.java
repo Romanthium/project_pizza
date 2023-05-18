@@ -2,8 +2,11 @@ package com.example.projectpizza.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,6 +25,7 @@ public class Dish {
 
     @Positive(message = "Size can'''t be less than 1")
     @NotNull(message = "Size can'''t be less than 1")
+    @Digits(message = "Can be only digits", integer = 10, fraction = 0)
     private Integer size;
 
     //unit
@@ -29,9 +33,11 @@ public class Dish {
     @JoinColumn(name = "unit", referencedColumnName = "id")
     private Unit unit;
 
-    @PositiveOrZero(message = "Price can'''t be less than 0")
+//    @PositiveOrZero(message = "Price can'''t be less than 0")
     @NotNull(message = "Price can'''t be less than 0")
-    private Float price;
+    @Digits(message = "Can be only digits: 9 / 9.9 / 9.99", integer = 10, fraction = 2)
+    @DecimalMin(message = "Price can'''t be less than 0", value = "0.0")
+    private BigDecimal price;
 
     //type
     @ManyToOne
