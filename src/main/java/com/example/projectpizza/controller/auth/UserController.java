@@ -72,6 +72,7 @@ public class UserController {
             model.addAttribute("roles", userRoleService.findAll());
             return "users/edit-user";
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userService.update(id, user);
 
