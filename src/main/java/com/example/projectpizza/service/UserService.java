@@ -31,6 +31,10 @@ public class UserService {
         return userRepository.findByLogin(login);
     }
 
+    public Optional<User> findByLoginAndIdNot(String login, Integer id) {
+        return userRepository.findByLoginAndIdNot(login, id);
+    }
+
     public User findOne(int id) {
         return userRepository.findById(id).orElse(null);
     }
