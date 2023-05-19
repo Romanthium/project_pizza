@@ -29,4 +29,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             " ORDER BY login",
             nativeQuery = true)
     List<User> findAllManagers();
+
+    Optional<User> findByLoginAndIdNot(String login, Integer id);
 }
