@@ -38,7 +38,7 @@ public class SecurityConfig {
                         "/dishes/**",
                         "/ingredients/**",
                         "/units/**").hasAnyRole("ADMIN", "GLOBAL_MANAGER")
-                .requestMatchers("/auth/registration").hasRole("ADMIN")
+                .requestMatchers("/users/**").hasRole("ADMIN")
                 .requestMatchers("/auth/login", "/error", "auth/access-denied","/bootstrap/**") //white list
                 .permitAll()
                 .anyRequest()

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div style="padding: 20px">
+    <div style="width:50%">
+        <p class="fs-3">All users</p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>User login</th>
+                <th>User role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user,iter : ${users}" th:style="${iter.even}? 'font-weight: bold'">
+                <td th:text="${iter.index}+1"/>
+                <td th:text="${user.getLogin()}"/>
+                <td th:text="${user.getUserRole().getName()}"/>
+                <td>
+                    <a th:href="@{/users/{id}/edit-user(id=${user.getId()})}" class="btn btn-primary" role="button"
+                       style="width: 100px">Edit</a>
+                </td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                        <!--                        <div>-->
+                        <!--                            <input type="hidden" th:value="${user.id}" name="userId">-->
+                        <!--                        </div>-->
+                        <div>
+                            <input type="submit" class="btn btn-danger" role="button" style="width: 100px"
+                                   value="Delete"/>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="color:red; font-size: small; margin: 20px auto" th:if="${deleted}">User was deleted</div>
+        <div style="margin: auto 25%">
+            <a href="users/registration" class="btn btn-primary" role="button" style="width: 150px">Add new user</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

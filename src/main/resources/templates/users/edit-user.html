@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user information</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div style="padding: 20px">
+    <form th:method="PATCH" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}" style="width: 50%">
+        <div class="mb-3">
+            <label for="login" class="form-label">Username:</label>
+            <input type="text" th:field="*{login}" class="form-control" id="login"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Username
+                Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password"/>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                Password Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-label">User role:</div>
+            <th:block th:each="role : ${roles}">
+                <div>
+                    <input id="#" type="radio" th:id="${role.getId()}" th:field="*{userRole.id}" th:value="${role.getId()}"/>
+                    <label for="#" th:for="${role.getId()}" th:text="${role.getName()}" class="form-label">user_role</label>
+                </div>
+            </th:block>
+            <div style="color:red; font-size: small" th:if="${#fields.hasErrors('userRole')}"
+                 th:errors="*{userRole}">
+                User Role Error
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update user"/>
+    </form>
+</div>
+</body>
+</html>
