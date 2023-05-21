@@ -10,6 +10,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "dish_type")
 public class DishType {

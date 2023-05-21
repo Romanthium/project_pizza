@@ -10,6 +10,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "unit")
 public class Unit {
