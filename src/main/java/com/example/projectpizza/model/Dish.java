@@ -20,12 +20,12 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Name can'''t be empty")
+    @NotBlank(message = "{name.required}")
     private String name;
 
-    @Positive(message = "Size can'''t be less than 1")
-    @NotNull(message = "Size can'''t be less than 1")
-    @Digits(message = "Can be only digits", integer = 10, fraction = 0)
+    @Positive(message = "{size.constraint}")
+    @NotNull(message = "{size.constraint}")
+    @Digits(message = "{only_digits.required}", integer = 10, fraction = 0)
     private Integer size;
 
     //unit
@@ -34,9 +34,9 @@ public class Dish {
     private Unit unit;
 
 //    @PositiveOrZero(message = "Price can'''t be less than 0")
-    @NotNull(message = "Price can'''t be less than 0")
-    @Digits(message = "Can be only digits: 9 / 9.9 / 9.99", integer = 10, fraction = 2)
-    @DecimalMin(message = "Price can'''t be less than 0", value = "0.0")
+    @NotNull(message = "{price.constraint}")
+    @Digits(message = "{price_only_digits.constraint}", integer = 10, fraction = 2)
+    @DecimalMin(message = "{price.constraint}", value = "0.0")
     private BigDecimal price;
 
     //type

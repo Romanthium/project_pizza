@@ -24,10 +24,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Login can'''t be empty")
+    @NotBlank(message = "{login.required}")
     private String login;
 
-    @NotBlank(message = "Password can'''t be empty")
+    @NotBlank(message = "{password.required}")
     private String password;
 
     @ManyToOne
