@@ -19,7 +19,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Name can'''t be empty")
+    @NotBlank(message = "{name.required}")
     private String name;
 
     @ManyToMany(mappedBy = "ingredients")
