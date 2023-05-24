@@ -22,13 +22,13 @@ public class Cafe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Name can'''t be empty")
+    @NotBlank(message = "{name.required}")
     private String name;
 
-    @NotBlank(message = "Phone can'''t be empty")
-    @Pattern(regexp = "^\\d+$", message = "Can contain only digits")
+    @NotBlank(message = "{phone.required}")
+    @Pattern(regexp = "^\\d+$", message = "{only_digits.required}")
     private String phone;
-    @NotBlank(message = "Address can'''t be empty")
+    @NotBlank(message = "{address.required}")
     private String address;
 
     @ManyToOne
