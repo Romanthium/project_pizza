@@ -22,7 +22,7 @@
             <tr th:each="user,iter : ${users}" th:style="${iter.even}? 'font-weight: bold'">
                 <td th:text="${iter.index}+1"/>
                 <td th:text="${user.getLogin()}"/>
-                <td th:text="${user.getUserRole().getName()}"/>
+                <td th:text="${user.getUserRole().name()}"/>
                 <td>
                     <a th:href="@{/users/{id}/edit-user(id=${user.getId()})}" class="btn btn-primary" role="button"
                        style="width: 100px">Edit</a>

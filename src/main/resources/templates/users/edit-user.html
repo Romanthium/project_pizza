@@ -27,8 +27,8 @@
             <div class="form-label">User role:</div>
             <th:block th:each="role : ${roles}">
                 <div>
-                    <input id="#" type="radio" th:id="${role.getId()}" th:field="*{userRole.id}" th:value="${role.getId()}"/>
-                    <label for="#" th:for="${role.getId()}" th:text="${role.getName()}" class="form-label">user_role</label>
+                    <input id="#" type="radio" th:id="${role.name()}" th:field="*{userRole}" th:value="${role.name()}"/>
+                    <label for="#" th:for="${role.name()}" th:text="${role.name()}" class="form-label">user_role</label>
                 </div>
             </th:block>
             <div style="color:red; font-size: small" th:if="${#fields.hasErrors('userRole')}"

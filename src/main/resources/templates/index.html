@@ -16,27 +16,31 @@
             </td>
         </tr>
         <tr>
-            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+            <td sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name(),
+             T(com.example.projectpizza.model.UserRole).GLOBAL_MANAGER.name())">
                 <a href="dish-types">Dish types</a>
             </td>
         </tr>
         <tr>
-            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+            <td sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name(),
+             T(com.example.projectpizza.model.UserRole).GLOBAL_MANAGER.name())">
                 <a href="dishes">Dishes</a>
             </td>
         </tr>
         <tr>
-            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+            <td sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name(),
+             T(com.example.projectpizza.model.UserRole).GLOBAL_MANAGER.name())">
                 <a href="ingredients">Ingredients</a>
             </td>
         </tr>
         <tr>
-            <td sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')">
+            <td sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name(),
+             T(com.example.projectpizza.model.UserRole).GLOBAL_MANAGER.name())">
                 <a href="units">Measure Units</a>
             </td>
         </tr>
         <tr>
-            <td sec:authorize="hasAnyRole('ADMIN')">
+            <td sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name())">
                 <a href="users">All users</a>
             </td>
         </tr>

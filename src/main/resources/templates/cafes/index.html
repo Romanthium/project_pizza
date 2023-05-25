@@ -20,7 +20,8 @@
             </tr>
             </tbody>
         </table>
-        <div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')" style="margin: auto 25%">
+        <div sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name(),
+             T(com.example.projectpizza.model.UserRole).GLOBAL_MANAGER.name())" style="margin: auto 25%">
             <a href="/cafes/new" class="btn btn-primary" role="button">Add new cafe</a>
         </div>
     </div>
