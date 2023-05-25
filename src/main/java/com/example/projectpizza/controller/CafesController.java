@@ -1,6 +1,7 @@
 package com.example.projectpizza.controller;
 
 import com.example.projectpizza.model.Cafe;
+import com.example.projectpizza.model.UserRole;
 import com.example.projectpizza.service.CafeService;
 import com.example.projectpizza.service.DishService;
 import com.example.projectpizza.service.UserService;
@@ -33,7 +34,7 @@ public class CafesController {
 
     @GetMapping()
     public String index(Model model, HttpServletRequest request) {
-        if (request.isUserInRole("ROLE_CAFE_MANAGER")) {
+        if (request.isUserInRole(UserRole.CAFE_MANAGER.getAuthority())) {
             model.addAttribute("cafes", cafeService.findAllByManagerId(getUserID(request.getUserPrincipal())));
         } else {
             model.addAttribute("cafes", cafeService.findAllOrdered());
@@ -44,7 +45,7 @@ public class CafesController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, HttpServletRequest request) {
         Cafe cafe = cafeService.findOne(id);
-        if (request.isUserInRole("ROLE_CAFE_MANAGER")) {
+        if (request.isUserInRole(UserRole.CAFE_MANAGER.getAuthority())) {
             if (cafe.getManager() != null && cafe.getManager().getId().compareTo(getUserID(request.getUserPrincipal())) == 0) {
                 model.addAttribute("cafe", cafe);
             } else {
