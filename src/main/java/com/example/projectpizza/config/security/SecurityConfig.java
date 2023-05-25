@@ -1,5 +1,6 @@
 package com.example.projectpizza.config.security;
 
+import com.example.projectpizza.model.UserRole;
 import com.example.projectpizza.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +34,15 @@ public class SecurityConfig {
 //                .disable()
                 .authenticationManager(authenticationManager)
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/cafes/**").hasAnyRole("ADMIN", "GLOBAL_MANAGER", "CAFE_MANAGER")
+                .requestMatchers("/", "/cafes/**").hasAnyRole(UserRole.ADMIN.name(),
+                        UserRole.GLOBAL_MANAGER.name(),
+                        UserRole.CAFE_MANAGER.name())
                 .requestMatchers("/dish-types/**",
                         "/dishes/**",
                         "/ingredients/**",
-                        "/units/**").hasAnyRole("ADMIN", "GLOBAL_MANAGER")
-                .requestMatchers("/users/**").hasRole("ADMIN")
-                .requestMatchers("/auth/login", "/error", "auth/access-denied","/bootstrap/**") //white list
+                        "/units/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.GLOBAL_MANAGER.name())
+                .requestMatchers("/users/**").hasRole(UserRole.ADMIN.name())
+                .requestMatchers("/auth/login", "/error", "auth/access-denied", "/bootstrap/**") //white list
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -52,8 +55,8 @@ public class SecurityConfig {
                 .logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/auth/login")
                 .and()
-                .exceptionHandling()
-                .accessDeniedPage("/auth/access-denied");
+                .exceptionHandling();
+//                .accessDeniedPage("/auth/access-denied");
 
         return httpSecurity.build();
     }
