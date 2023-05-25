@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "User Role is not selected")
+    @NotNull(message = "{user_role.required}")
     private UserRole userRole;
 
     @OneToMany(mappedBy = "manager")
