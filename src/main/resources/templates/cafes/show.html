@@ -32,7 +32,8 @@
             </p>
         </div>
         <a th:href="@{/cafes/{id}/edit(id=${cafe.getId()})}" class="btn btn-primary" role="button" style="width: 100px">Edit</a>
-        <div sec:authorize="hasAnyRole('ADMIN', 'GLOBAL_MANAGER')" style="margin-top: 5px">
+        <div sec:authorize="hasAnyRole(T(com.example.projectpizza.model.UserRole).ADMIN.name(),
+             T(com.example.projectpizza.model.UserRole).GLOBAL_MANAGER.name())" style="margin-top: 5px">
             <form th:method="DELETE" th:action="@{/cafes/{id}(id=${cafe.getId()})}">
                 <input type="submit" class="btn btn-danger" style="width: 100px" value="Delete"/>
             </form>
