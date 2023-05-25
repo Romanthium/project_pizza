@@ -30,8 +30,7 @@ public class User implements UserDetails {
     @NotBlank(message = "{password.required}")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "User Role is not selected")
     private UserRole userRole;
 
@@ -53,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userRole.getName()));
+        return List.of(new SimpleGrantedAuthority(userRole.getAuthority()));
     }
 
     @Override
