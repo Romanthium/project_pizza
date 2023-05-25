@@ -47,16 +47,11 @@ class CafesControllerTest {
 
     @BeforeEach
     void setUp() {
-        UserRole userRole = UserRole.builder()
-                .id(1)
-                .name("ROLE_ADMIN")
-                .build();
-
         User manager = User.builder()
                 .id(1)
                 .login("admin")
                 .password("password")
-                .userRole(userRole)
+                .userRole(UserRole.ADMIN)
                 .build();
 
         cafe = Cafe.builder()

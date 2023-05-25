@@ -34,17 +34,12 @@ class CafeRepositoryTest {
 
     @Test
     void findAllByManagerId() {
-        UserRole userRole = UserRole.builder()
-                .name("ROLE_CAFE_MANAGER")
-                .build();
-
         User manager = User.builder()
                 .login("manager")
                 .password("password")
-                .userRole(userRole)
+                .userRole(UserRole.CAFE_MANAGER)
                 .build();
 
-        entityManager.persist(userRole);
         entityManager.persist(manager);
 
 
