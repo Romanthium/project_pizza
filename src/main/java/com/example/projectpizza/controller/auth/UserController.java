@@ -1,7 +1,7 @@
 package com.example.projectpizza.controller.auth;
 
 import com.example.projectpizza.model.User;
-import com.example.projectpizza.service.UserRoleService;
+import com.example.projectpizza.model.UserRole;
 import com.example.projectpizza.service.UserService;
 import com.example.projectpizza.utils.validator.auth.UserValidator;
 import jakarta.validation.Valid;
@@ -13,12 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final UserRoleService userRoleService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -26,7 +27,7 @@ public class UserController {
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("roles", userRoleService.findAll());
+        model.addAttribute("roles", List.of(UserRole.values()));
         return "users/registration";
     }
 
@@ -38,7 +39,7 @@ public class UserController {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("roles", userRoleService.findAll());
+            model.addAttribute("roles", List.of(UserRole.values()));
             return "users/registration";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -56,7 +57,7 @@ public class UserController {
     @GetMapping("/{id}/edit-user")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.findOne(id));
-        model.addAttribute("roles", userRoleService.findAll());
+        model.addAttribute("roles", List.of(UserRole.values()));
         return "users/edit-user";
     }
 
@@ -66,10 +67,10 @@ public class UserController {
                          @PathVariable("id") int id, Model model) {
         userValidator.validate(user, bindingResult);
 
-        model.addAttribute("roles", userRoleService.findAll());
+        model.addAttribute("roles", List.of(UserRole.values()));
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("roles", userRoleService.findAll());
+            model.addAttribute("roles", List.of(UserRole.values()));
             return "users/edit-user";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
