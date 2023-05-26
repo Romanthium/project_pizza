@@ -20,12 +20,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //                "INNER JOIN u.userRole ur " +
 //                "WHERE ur.name = 'ROLE_CAFE_MANAGER'")
     @Query(value = "SELECT user_info.id as id," +
-            " user_info.login as login, " +
-            " user_info.password as password, " +
-            " user_info.role_id as role_id" +
+            " user_info.login as login," +
+            " user_info.password as password," +
+            " user_info.user_role as user_role" +
             " FROM pizza_cafe_db.userinfo as user_info" +
-            " INNER JOIN pizza_cafe_db.user_role user_role ON role_id = user_role.id" +
-            " WHERE user_role.name = 'ROLE_CAFE_MANAGER'" +
+            " WHERE user_role = 'CAFE_MANAGER'" +
             " ORDER BY login",
             nativeQuery = true)
     List<User> findAllManagers();
