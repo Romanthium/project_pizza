@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Dish type information</title>
@@ -11,6 +11,14 @@
     <div style="width: 50%">
         <div class="mb-3 row">
             <p th:text="${dishType.getName()}" class="col-form-label fs-3">VALUE</p>
+        </div>
+        <div class="mb-3 row">
+            <p th:text="${'Dishes of this type: '}" class="col-form-label">VALUE</p>
+            <p class="col-form-label">
+                <th:block th:each="dish,iterStat : ${dishType.getDishes()}">
+                    <span th:text="${dish.getName()} + ${!iterStat.last ? ',' : ''}">VALUE</span>
+                </th:block>
+            </p>
         </div>
         <a th:href="@{/dish-types/{id}/edit(id=${dishType.getId()})}" class="btn btn-primary" role="button"
            style="width: 100px">Edit</a>
