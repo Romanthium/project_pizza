@@ -55,8 +55,8 @@ public class SecurityConfig {
                 .logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/auth/login")
                 .and()
-                .exceptionHandling();
-//                .accessDeniedPage("/auth/access-denied");
+                .exceptionHandling()
+                .accessDeniedPage("/auth/access-denied");
 
         return httpSecurity.build();
     }
