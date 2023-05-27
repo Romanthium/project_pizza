@@ -78,9 +78,8 @@ public class CafesController {
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/new";
         }
-        if (cafe.getManager().getId() == -1) { //need for deselecting
-            cafe.setManager(null);
-        }
+
+        managerDeselect(cafe);
 
         cafeService.save(cafe);
         return "redirect:/cafes";
@@ -109,9 +108,9 @@ public class CafesController {
             model.addAttribute("managers", userService.findAllManagers());
             return "cafes/edit";
         }
-        if (cafe.getManager().getId() == -1) { //need fo deselecting
-            cafe.setManager(null);
-        }
+
+        managerDeselect(cafe);
+
         cafeService.update(id, cafe);
         return "redirect:/cafes";
     }
@@ -124,6 +123,11 @@ public class CafesController {
 
     private Integer getUserID(Principal principal) {
         return userService.findByLogin(principal.getName()).get().getId();  //user always has an id
+    }
+
+    private void managerDeselect(Cafe cafe) {
+        if (cafe.getManager().getId() == -1)//need for deselecting manager
+            cafe.setManager(null);
     }
 
 }
