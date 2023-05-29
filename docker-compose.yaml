@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: cafe_app
+    depends_on:
+      - db
+    ports:
+      - '8888:8080'
+    env_file:
+      - .env
+
+  db:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./src/main/resources/db/init:/docker-entrypoint-initdb.d
