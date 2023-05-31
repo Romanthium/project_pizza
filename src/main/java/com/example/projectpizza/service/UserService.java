@@ -1,5 +1,6 @@
 package com.example.projectpizza.service;
 
+import com.example.projectpizza.handler.IdNotFoundException;
 import com.example.projectpizza.model.User;
 import com.example.projectpizza.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UserService {
     }
 
     public User findOne(int id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 package com.example.projectpizza.service;
 
+import com.example.projectpizza.handler.IdNotFoundException;
 import com.example.projectpizza.model.Unit;
 import com.example.projectpizza.repository.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class UnitService {
     }
 
     public Unit findOne(int id) {
-        return unitRepository.findById(id).orElse(null);
+        return unitRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id, "Unit measure"));
     }
 
     public Optional<Unit> findByName(String name) {
