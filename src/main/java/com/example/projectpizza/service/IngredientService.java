@@ -1,5 +1,6 @@
 package com.example.projectpizza.service;
 
+import com.example.projectpizza.handler.IdNotFoundException;
 import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class IngredientService {
     }
 
     public Ingredient findOne(int id) {
-        return ingredientRepository.findById(id).orElse(null);
+        return ingredientRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id, "Ingredient"));
     }
 
     public Optional<Ingredient> findByName(String name) {

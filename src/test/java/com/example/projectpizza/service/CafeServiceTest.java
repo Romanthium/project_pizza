@@ -1,5 +1,6 @@
 package com.example.projectpizza.service;
 
+import com.example.projectpizza.handler.IdNotFoundException;
 import com.example.projectpizza.model.Cafe;
 import com.example.projectpizza.repository.CafeRepository;
 import org.junit.jupiter.api.Test;
@@ -10,10 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CafeServiceTest {
@@ -58,8 +62,28 @@ class CafeServiceTest {
 
     @Test
     void findOne() {
-        underTest.findOne(anyInt());
-        verify(cafeRepository).findById(anyInt());
+        int id = 1;
+        Cafe cafe = Cafe.builder()
+                .id(id)
+                .name("Cafe")
+                .phone("1111")
+                .address("Cafe address")
+                .build();
+        when(cafeRepository.findById(id)).thenReturn(Optional.of(cafe));
+
+        Cafe result = underTest.findOne(id);
+
+        assertThat(result).isEqualTo(cafe);
+    }
+
+    @Test
+    void findOne_shouldThrowException() {
+        int id = 2;
+        when(cafeRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> underTest.findOne(id))
+                .isInstanceOf(IdNotFoundException.class)
+                .hasMessageContaining(Integer.toString(id));
     }
 
     @Test
