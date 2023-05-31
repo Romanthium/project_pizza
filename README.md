@@ -50,3 +50,6 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 
 - login: cafe_manager3
 - password: cafe_manager3
+
+### Database ERD
+![alt text](cafe_project_erd.png)
