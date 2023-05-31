@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div style="padding: 20px">
+    <h3>An error has occurred</h3>
+    <p class="fs-6"><span id='date-time'></span></p>
+    <br>
+    <a th:href="@{/}" class="btn btn-primary" role="button"
+       style="width: 200px">Back to the home page</a>
+    <script>
+        let dt = new Date();
+        document.getElementById('date-time').innerHTML = dt;
+    </script>
+</div>
+</body>
+</html>
