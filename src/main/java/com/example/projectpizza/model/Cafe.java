@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "cafe")
-public class Cafe {
+public class Cafe implements AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

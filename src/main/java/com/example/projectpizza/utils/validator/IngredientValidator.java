@@ -4,30 +4,17 @@ import com.example.projectpizza.model.Ingredient;
 import com.example.projectpizza.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 @Component
-public class IngredientValidator implements Validator {
-    private final IngredientService ingredientService;
+public class IngredientValidator extends NameValidator<Ingredient> {
 
     @Autowired
     public IngredientValidator(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
+        super(ingredientService);
     }
 
     @Override
-    public boolean supports(Class<?> clazz) {
-        return Ingredient.class.equals(clazz);
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-         Ingredient ingredient = (Ingredient) target;
-
-        if ((ingredientService.findByName(ingredient.getName()).isPresent() && ingredient.getId() == null)
-                || (ingredientService.findByNameAndIdNot(ingredient.getName(), ingredient.getId()).isPresent())) {
-            errors.rejectValue("name", "", "This name is already taken");
-        }
+    protected Class<Ingredient> getSupportedClass() {
+        return Ingredient.class;
     }
 }
