@@ -1,8 +1,11 @@
 package com.example.projectpizza.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public interface EntityService<T> {
 
     List<T> findAll();
