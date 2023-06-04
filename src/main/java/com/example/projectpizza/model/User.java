@@ -19,13 +19,17 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "userinfo")
-public class User implements UserDetails {
+public class User implements UserDetails, AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank(message = "{login.required}")
     private String login;
+
+    public String getName() {
+        return login;
+    }
 
     @NotBlank(message = "{password.required}")
     private String password;
