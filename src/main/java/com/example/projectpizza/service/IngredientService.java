@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class IngredientService {
+public class IngredientService implements EntityService<Ingredient> {
     private final IngredientRepository ingredientRepository;
 
     @Autowired

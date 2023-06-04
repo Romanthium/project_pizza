@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class UnitService {
+public class UnitService implements EntityService<Unit> {
     private final UnitRepository unitRepository;
 
     @Autowired

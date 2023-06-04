@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class UserService {
+public class UserService implements EntityService<User> {
     private final UserRepository userRepository;
 
     @Autowired
@@ -24,15 +24,20 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public List<User> findAllOrdered() {
+        return userRepository.findAllByOrderByLoginAsc();
+    }
+
     public List<User> findAllManagers() {
         return userRepository.findAllManagers();
     }
 
-    public  Optional<User> findByLogin(String login) {
+    public  Optional<User> findByName(String login) {
         return userRepository.findByLogin(login);
     }
 
-    public Optional<User> findByLoginAndIdNot(String login, Integer id) {
+    public Optional<User> findByNameAndIdNot(String login, Integer id) {
         return userRepository.findByLoginAndIdNot(login, id);
     }
 
