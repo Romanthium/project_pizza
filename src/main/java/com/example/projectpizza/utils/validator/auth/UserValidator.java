@@ -21,8 +21,8 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-        if (userService.findByLogin(user.getLogin()).isPresent() && user.getId() == null
-                || (userService.findByLoginAndIdNot(user.getLogin(), user.getId()).isPresent())) {
+        if (userService.findByName(user.getLogin()).isPresent() && user.getId() == null
+                || (userService.findByNameAndIdNot(user.getLogin(), user.getId()).isPresent())) {
             errors.rejectValue("login", "", "This user name is already taken");
         }
     }

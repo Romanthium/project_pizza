@@ -122,7 +122,7 @@ public class CafesController {
     }
 
     private Integer getUserID(Principal principal) {
-        return userService.findByLogin(principal.getName()).get().getId();  //user always has an id
+        return userService.findByName(principal.getName()).get().getId();  //user always has an id
     }
 
     private void managerDeselect(Cafe cafe) {
