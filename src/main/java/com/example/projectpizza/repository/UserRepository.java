@@ -30,4 +30,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllManagers();
 
     Optional<User> findByLoginAndIdNot(String login, Integer id);
+
+    List<User> findAllByOrderByLoginAsc();
 }
