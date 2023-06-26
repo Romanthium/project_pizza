@@ -23,6 +23,13 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 - Lombok
 - JUnit, Mockito and AssertJ for some tests
 
+### How to run the app with Docker:
+1. Clone the repository
+2. Rename file .env.sample to .env
+3. Execute in terminal 'docker compose up' to create and start containers
+4. Access URL: http://localhost:8888/
+
+
 ### How to run the app:
 1. Setup PostgreSQL DB
 2. Clone the repository
