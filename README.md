@@ -32,10 +32,10 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 
 
 ### How to run the app:
-1. Setup PostgreSQL DB
+1. Setup PostgreSQL DB, add Database ````project_pizza````
 2. Clone the repository
 3. Rename file .env.sample to .env
-4. Set in .env file password for Postgres
+4. Set in .env file username and password for Postgres
 5. ````mvn clean install -DskipTests```` to build project with tests skipping
 6. Run
 7. Access URL: http://localhost:8080/
