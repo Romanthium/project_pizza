@@ -13,7 +13,6 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 
 ### Technologies used:
 - Java 17
-- Maven
 - PostrgeSQL and H2(for testing) databases
 - Spring Boot
 - Spring Data JPA and Hibernate
@@ -21,12 +20,14 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 - Thymeleaf templates
 - Bootstrap for frontend UI
 - Lombok
+- Docker
+- Maven
 - JUnit, Mockito and AssertJ for some tests
 
 ### How to run the app with Docker:
 1. Clone the repository
-2. Rename file .env.sample to .env
-3. Execute in terminal 'docker compose up' to create and start containers
+2. Rename file .env.docker to .env
+3. Execute in terminal ````docker compose up```` to create and start containers
 4. Access URL: http://localhost:8888/
 
 
@@ -35,7 +36,7 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 2. Clone the repository
 3. Rename file .env.sample to .env
 4. Set in .env file password for Postgres
-5. mvn clean install -DskipTests to build project with tests skipping
+5. ````mvn clean install -DskipTests```` to build project with tests skipping
 6. Run
 7. Access URL: http://localhost:8080/
 
