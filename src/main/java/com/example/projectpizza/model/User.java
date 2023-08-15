@@ -19,7 +19,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "userinfo")
-public class User  extends AbstractEntity implements UserDetails {
+public class User extends AbstractEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,6 +37,12 @@ public class User  extends AbstractEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "{user_role.required}")
     private UserRole userRole;
+
+    public User(Integer id, String login, UserRole userRole) {
+        this.id = id;
+        this.login = login;
+        this.userRole = userRole;
+    }
 
     @OneToMany(mappedBy = "manager")
     private List<Cafe> cafe;
