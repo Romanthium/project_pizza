@@ -32,8 +32,13 @@ public class Cafe extends AbstractEntity {
     private String address;
 
     @ManyToOne
-    @JoinColumn(name="manager_id", referencedColumnName = "id")
+    @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private User manager;
+
+    public Cafe(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     @ManyToMany
     @OrderBy("name")
