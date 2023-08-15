@@ -12,21 +12,10 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByLogin(String login);
 
-    //        @Query("SELECT u.id as id, " +
-//                "u.login as login, " +
-//                "u.password as password, " +
-//                "u.userRole as role_id " +
-//                "FROM User u " +
-//                "INNER JOIN u.userRole ur " +
-//                "WHERE ur.name = 'ROLE_CAFE_MANAGER'")
-    @Query(value = "SELECT user_info.id as id," +
-            " user_info.login as login," +
-            " user_info.password as password," +
-            " user_info.user_role as user_role" +
-            " FROM pizza_cafe_db.userinfo as user_info" +
-            " WHERE user_role = 'CAFE_MANAGER'" +
-            " ORDER BY login",
-            nativeQuery = true)
+    @Query(value = "SELECT NEW User(u.id, u.login, u.userRole) " +
+            "FROM User as u " +
+            "WHERE u.userRole = 'CAFE_MANAGER' " +
+            "ORDER BY u.login")
     List<User> findAllManagers();
 
     Optional<User> findByLoginAndIdNot(String login, Integer id);
