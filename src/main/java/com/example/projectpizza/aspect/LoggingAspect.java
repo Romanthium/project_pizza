@@ -14,11 +14,11 @@ public class LoggingAspect {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    @Pointcut("within(com.example.projectpizza.service..*) || within(com.example.projectpizza.controller..*)")
+    @Pointcut(value = "within(com.example.projectpizza.service..*) || within(com.example.projectpizza.controller..*)")
     public void pointcut() {
     }
 
-    @Before("pointcut()")
+    @Before(value = "pointcut()")
     public void logBefore(JoinPoint joinPoint) {
         logger.debug("Method {} started with args:{}", () -> joinPoint.getSignature().getName(),
                 () -> Arrays.toString(joinPoint.getArgs()));
