@@ -17,16 +17,16 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 - Spring Boot
 - Spring Data JPA and Hibernate
 - Spring Security
-- Thymeleaf templates
-- Bootstrap for frontend UI
+- AOP and Logging
+- Thymeleaf templates and Bootstrap for frontend UI
 - Lombok
 - Docker
 - Maven
-- JUnit, Mockito and AssertJ for some tests
+- JUnit, Mockito and AssertJ for tests
 
 ### How to run the app with Docker:
 1. Clone the repository
-2. Rename file .env.docker to .env
+2. Rename file ````.env.docker```` to ````.env````
 3. Execute in terminal ````docker compose up```` to create and start containers
 4. Access URL: http://localhost:8888/
 
@@ -34,8 +34,8 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 ### How to run the app:
 1. Setup PostgreSQL DB, add Database ````project_pizza````
 2. Clone the repository
-3. Rename file .env.sample to .env
-4. Set in .env file username and password for Postgres
+3. Rename file ````.env.sample```` to ````.env````
+4. Set in ````.env```` file username and password for Postgres
 5. ````mvn clean install -DskipTests```` to build project with tests skipping
 6. Run
 7. Access URL: http://localhost:8080/
