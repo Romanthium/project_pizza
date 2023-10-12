@@ -17,7 +17,7 @@ Users with role **cafe_manager** can maintain only cafés (except deleting them)
 - Spring Boot
 - Spring Data JPA and Hibernate
 - Spring Security
-- AOP and Logging
+- Spring AOP and Logging
 - Thymeleaf templates and Bootstrap for frontend UI
 - Lombok
 - Docker
